@@ -1,4 +1,4 @@
-#MayCore
+<h1>MayCore</h1>
 一个基于BukkitAPI开发的类库
 
 <h2>它能为你做些什么?</h2>
@@ -9,8 +9,14 @@
     <li>简易的构造Tellraw</li>
     <li>简易的构造Book</li>
     <li>已封装好的BungeeCordAPI</li>
-    <li>已封装好的BungeeCordAPI</li>
     <li>封装了许许多多的Util</li>
+</ul>
+
+<h2>编译</h2>
+<h6>在编译之前你需要以下额外的类库<h6>
+<ul>
+    <li>服务端核心(craftbukkit或spigot)</li>
+    <li>ProtocolLib</li>
 </ul>
 
 <h2>开源
