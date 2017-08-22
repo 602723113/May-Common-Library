@@ -1,0 +1,11 @@
+Tab:
+  Head: "&r  &6&l&m一&f&l&m一一一一一一&8 [ &6梦江湖 &8] &f&l&m一一一一一一&6&l&m一\n"
+  Foot: "\n&6游戏版本 &a1.12"
+Title:
+  FadeIn: 5
+  Stay: 20
+  FadeOut: 5
+  Title: "&a梦江湖"
+  SubTitle: null
+BossBar: "&6&o&l90%原创,详情 /Core List"
+ChatRadius: 35.0

@@ -1,0 +1,8 @@
+name: MayCore
+main: me.may.core.Core
+version: 1.0
+author: May_Speed
+prefix: 核心
+depend: [ProtocolLib]
+commands:
+  core:
