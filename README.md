@@ -13,7 +13,7 @@
 </ul>
 
 <h2>编译</h2>
-<h6>在编译之前你需要以下额外的类库<h6>
+<h4>在编译之前你需要以下额外的类库</h4>
 <ul>
     <li>服务端核心(craftbukkit或spigot)</li>
     <li>ProtocolLib</li>
