@@ -56,7 +56,6 @@ public class TitleUtils {
             try {
                 pm.sendServerPacket(player, packet, false); // 发送数据包
             } catch (InvocationTargetException e) {
-                // TODO 自动生成的 catch 块
                 e.printStackTrace();
             }
         }
@@ -73,7 +72,6 @@ public class TitleUtils {
             try {
                 pm.sendServerPacket(player, packet, false);
             } catch (InvocationTargetException e) {
-                // TODO 自动生成的 catch 块
                 e.printStackTrace();
             }
         }

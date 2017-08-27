@@ -42,7 +42,6 @@ public class ActionBarUtils {
         try {
             pm.sendServerPacket(player, packet, false);
         } catch (InvocationTargetException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
     }

@@ -17,6 +17,13 @@ import java.util.List;
 
 public class EffectUtils {
 
+    /**
+     * 计算两个Location之间的距离
+     *
+     * @param loc1 location1
+     * @param loc2 location2
+     * @return 距离
+     */
     public static int getLine(Location loc1, Location loc2) {
         return (int)
                 Math.sqrt(

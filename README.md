@@ -8,6 +8,7 @@
     <li>简易的构造ActionBar</li>
     <li>简易的构造Tellraw</li>
     <li>简易的构造Book</li>
+    <li>[API]简易的使用1.12的新特性Advancement</li>
     <li>已封装好的BungeeCordAPI</li>
     <li>封装了许许多多的Util</li>
 </ul>

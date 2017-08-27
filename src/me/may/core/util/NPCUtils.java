@@ -152,7 +152,6 @@ public class NPCUtils {
                 pm.sendServerPacket(player, packet);
                 pm.sendServerPacket(player, packet2);
             } catch (InvocationTargetException e) {
-                // TODO 自动生成的 catch 块
                 e.printStackTrace();
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(Core.getInstance(), new Runnable() {
@@ -161,7 +160,6 @@ public class NPCUtils {
                     try {
                         pm.sendServerPacket(player, packet3);
                     } catch (InvocationTargetException e) {
-                        // TODO 自动生成的 catch 块
                         e.printStackTrace();
                     }
                 }

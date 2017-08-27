@@ -67,7 +67,6 @@ public class Glow extends Enchantment {
 
     @Override
     public boolean isCursed() {
-        // TODO 自动生成的方法存根
         return false;
     }
 

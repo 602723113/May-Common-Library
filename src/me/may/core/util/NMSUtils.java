@@ -81,7 +81,6 @@ public class NMSUtils {
         try {
             return Class.forName("org.bukkit.craftbukkit." + NMSUtils.getVersion() + "." + className);
         } catch (ClassNotFoundException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
         return null;

@@ -170,7 +170,6 @@ public class CoreServiceImpl implements CoreService {
         try {
             pm.sendServerPacket(player, updateSign);
         } catch (InvocationTargetException ex) {
-            // TODO Auto-generated catch block
             ex.printStackTrace();
         }
 		
@@ -185,7 +184,6 @@ public class CoreServiceImpl implements CoreService {
         try {
             pm.sendServerPacket(player, open);
         } catch (InvocationTargetException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
             return;
         }

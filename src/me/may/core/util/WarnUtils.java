@@ -31,7 +31,6 @@ public class WarnUtils {
         try {
             pm.sendServerPacket(player, packet);
         } catch (InvocationTargetException e) {
-            // TODO 自动生成的 catch 块
             e.printStackTrace();
         }
     }

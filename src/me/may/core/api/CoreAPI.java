@@ -46,7 +46,6 @@ public class CoreAPI {
      *
      * @param is          物品
      * @param unbreakable 无法破坏值[布尔]
-     * @return {@link ItemStack}
      */
     public static void setItemUnbreakable(ItemStack is, boolean unbreakable) {
         coreService.setItemUnbreakable(is, unbreakable);
