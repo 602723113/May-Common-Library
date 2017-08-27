@@ -51,7 +51,7 @@ public class AdvancementBuilder {
     /**
      * 进度图标损坏值
      */
-    private int data = 0;
+    private int iconData = 0;
     /**
      * 背景方块材质
      */
@@ -65,38 +65,84 @@ public class AdvancementBuilder {
      */
     private CriteriaBuilder criteria;
 
-    // 是否直到完成进度前在进度屏幕隐藏进度.对根进度无效,但会影响其子进度.当父进度值为true后便无法覆盖.默认为true
+    /**
+     * 是否直到完成进度前在进度屏幕隐藏进度.对根进度无效,但会影响其子进度.当父进度值为true后便无法覆盖.默认为true
+     */
     private boolean hide = true;
-    // 是否在完成此进度后显示提示信息.默认为true
+    /**
+     * 是否在完成此进度后显示提示信息.默认为true
+     */
     private boolean toast = true;
-    // 是否在完成此进度后广播此信息.默认为false
+    /**
+     * 是否在完成此进度后广播此信息.默认为false
+     */
     private boolean announce = false;
 
+    /**
+     * 设置该进度的内部Id
+     * @param advancementId 内部Id对象
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setAdvancementId(NamespacedKey advancementId) {
         this.advancementId = advancementId;
         return this;
     }
 
+    /**
+     * 设置该进度的标题
+     * @param title 标题
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setTitle(TextComponent title) {
         this.title = title;
         return this;
     }
 
-    public AdvancementBuilder setDescription(TextComponent description) {
-        this.description = description;
-        return this;
-    }
-
+    /**
+     * 设置该进度的标题
+     * @param title 标题
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setTitle(String title) {
         this.title = new TextComponent(title);
         return this;
     }
 
+    /**
+     * 设置该进度的描述
+     * @param description 描述
+     * @return {@link AdvancementBuilder}
+     */
+    public AdvancementBuilder setDescription(TextComponent description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * 设置该进度的描述
+     * @param description 描述
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setDescription(String description) {
         this.description = new TextComponent(description);
         return this;
     }
 
+    /**
+     * 设置该进度所显示的物品
+     * @param icon 物品 如 minecraft:stone
+     * @return {@link AdvancementBuilder}
+     */
+    public AdvancementBuilder setIcon(String icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    /**
+     * 设置该进度所显示的物品
+     * @param material 物品
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setIcon(Material material) {
         StringBuilder builder = new StringBuilder("minecraft:");
         builder.append(material.name().toLowerCase());
@@ -104,55 +150,96 @@ public class AdvancementBuilder {
         return this;
     }
 
-    public AdvancementBuilder setIcon(String icon) {
-        this.icon = icon;
+    /**
+     * 设置该进度所显示的物品的子Id
+     * @param data 子Id
+     * @return {@link AdvancementBuilder}
+     */
+    public AdvancementBuilder setIconData(int data) {
+        this.iconData = data;
         return this;
     }
 
-    public AdvancementBuilder setData(int data) {
-        this.data = data;
-        return this;
-    }
-
+    /**
+     * 设置该进度所显示的背景,如果父级已设定则自动忽略
+     * @param background 背景
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setBackground(BackgroundEnum background) {
         this.background = background;
         return this;
     }
 
+    /**
+     * 设置该进度所显示的图标框架
+     * @param frame 框架
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setFrame(FrameEnum frame) {
         this.frame = frame;
         return this;
     }
 
+    /**
+     * 设置该进度是否直到完成进度前在进度屏幕隐藏进度.对根进度无效,但会影响其子进度.当父进度值为true后便无法覆盖
+     * @param hide {@link Boolean}
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setHide(boolean hide) {
         this.hide = hide;
         return this;
     }
 
+    /**
+     * 设置该进度是否在完成后进行提示
+     * @param toast {@link Boolean}
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setToast(boolean toast) {
         this.toast = toast;
         return this;
     }
 
+    /**
+     * 设置该进度是否在完成后进行公告
+     * @param announce {@link Boolean}
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setAnnounce(boolean announce) {
         this.announce = announce;
         return this;
     }
 
+    /**
+     * 设置该进度的触发器
+     * @param criteria {@link CriteriaBuilder}
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setCriteria(CriteriaBuilder criteria) {
         this.criteria = criteria;
         return this;
     }
 
+    /**
+     * 设置该进度的父级进度
+     * @param parent namespacedKeyObj.toString
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setParent(String parent) {
         this.parent = parent;
         return this;
     }
 
+    /**
+     * 设置该进度的父级进度
+     * @param key 填入namespacedKeyObj
+     * @return {@link AdvancementBuilder}
+     */
     public AdvancementBuilder setParent(NamespacedKey key) {
         this.parent = key.toString();
         return this;
     }
+
 
     public NamespacedKey getAdvancementId() {
         return advancementId;
@@ -174,8 +261,8 @@ public class AdvancementBuilder {
         return icon;
     }
 
-    public int getData() {
-        return data;
+    public int getIconData() {
+        return iconData;
     }
 
     public BackgroundEnum getBackground() {
@@ -212,7 +299,7 @@ public class AdvancementBuilder {
         JsonObject display = new JsonObject();
             JsonObject icon = new JsonObject();
             icon.addProperty("item", this.icon);
-            icon.addProperty("data", this.data);
+            icon.addProperty("data", this.iconData);
         display.add("icon", icon);
         display.add("title", textComponentToJson(this.title));
         display.addProperty("frame", this.frame.toString().toLowerCase());
@@ -252,9 +339,9 @@ public class AdvancementBuilder {
 
 
     /**
-     * 授予
+     * 将部分玩家的该进度设置为已达成
      * @param players
-     * @return
+     * @return {@link AdvancementBuilder}
      */
     public AdvancementBuilder grant(Player... players) {
         Advancement advancement = build();
@@ -271,9 +358,9 @@ public class AdvancementBuilder {
     }
 
     /**
-     * 撤销
-     * @param players
-     * @return
+     * 撤销部分玩家的该进度
+     * @param players 玩家数组
+     * @return {@link AdvancementBuilder}
      */
     public AdvancementBuilder revoke(Player... players) {
         Advancement advancement = build();

@@ -7,27 +7,20 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.BlockPosition;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import me.may.core.advancement.BackgroundEnum;
-import me.may.core.advancement.FrameEnum;
-import me.may.core.advancement.TriggerEnum;
-import me.may.core.builder.*;
+import me.may.core.builder.AdvancementBuilder;
 import me.may.core.command.CommandHandler;
 import me.may.core.listener.PlayerJoinListener;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -51,53 +44,6 @@ public class Core extends JavaPlugin {
                 BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
         instance = this;
         pm = ProtocolLibrary.getProtocolManager();
-
-        ItemStack item = new ItemStack(Material.APPLE);
-        JsonObject itemJSON = new JsonObject();
-        itemJSON.addProperty("item", "minecraft:" + item.getType().name().toLowerCase());
-        itemJSON.addProperty("amount", item.getAmount());
-        itemJSON.addProperty("data", item.getData().getData());
-
-        AdvancementBuilder builder = new AdvancementBuilder()
-                .setAdvancementId(new NamespacedKey(this, "may/root"))
-                .setTitle("Test1")
-                .setDescription("我是父进度")
-                .setHide(false)
-                .setIcon(Material.SIGN)
-                .setBackground(BackgroundEnum.STONE)
-                .setFrame(FrameEnum.TASK)
-                .setCriteria(
-                        new CriteriaBuilder("example", TriggerEnum.CONSUME_ITEM)
-                                .addCondition(new ConditionBuilder("item", itemJSON))
-                );
-        builder.add();
-
-        ItemStack item2 = new ItemStack(Material.COBBLESTONE);
-        JsonObject itemJSON2 = new JsonObject();
-        itemJSON2.addProperty("item", "minecraft:" + item2.getType().name().toLowerCase());
-
-        JsonArray array = new JsonArray();
-        array.add(itemJSON2);
-
-        TextComponent title = new TextComponent("emmm");
-        title.setBold(true);
-        title.setColor(net.md_5.bungee.api.ChatColor.AQUA);
-
-        TextComponent description = new TextComponent("你获得了emmmm之力");
-        description.setBold(true);
-        AdvancementBuilder builder2 = new AdvancementBuilder()
-                .setAdvancementId(new NamespacedKey(this, "may/test"))
-                .setTitle(title)
-                .setDescription(description)
-                .setIcon("minecraft:wooden_pickaxe")
-                .setFrame(FrameEnum.GOAL)
-                .setCriteria(
-                        new CriteriaBuilder("get_stone", TriggerEnum.INVENTORY_CHANGED)
-                                .addCondition(new ConditionBuilder("items", array))
-                )
-                .setParent(builder.getAdvancementId().toString());
-        builder2.add();
-        builder2.saveToWorldData(Bukkit.getWorld("world"));
 
         pm.addPacketListener(new PacketAdapter(this, PacketType.Play.Server.UPDATE_SIGN) {
             @Override
@@ -161,7 +107,7 @@ public class Core extends JavaPlugin {
      * @return 全部世界名
      */
     public List<String> getWorldsName() {
-        List<String> names = new ArrayList<String>();
+        List<String> names = Lists.newArrayList();
         for (World world : Bukkit.getWorlds()) {
             names.add(world.getName());
         }

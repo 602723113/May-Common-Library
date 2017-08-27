@@ -28,7 +28,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Core - 实现
+ * Core - 接口实现
  *
  * @author May_Speed
  */
@@ -50,12 +50,11 @@ public class CoreServiceImpl implements CoreService {
         }
 
         if (Bukkit.getVersion().contains("Paper") && !Bukkit.isPrimaryThread()) {
-            Bukkit.getScheduler().runTask(Core.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + tellraw.toJsonString());
-                }
-            });
+            Bukkit.getScheduler().runTask(
+                    Core.getInstance(),
+                    () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + tellraw.toJsonString())
+            );
+
         } else {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + tellRaw.toJsonString());
         }
