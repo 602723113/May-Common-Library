@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author May_Speed
  * @since 2016/12/26
- * <p>
+ *
  * update 2017/8/05
  */
 public class TitleUtils {

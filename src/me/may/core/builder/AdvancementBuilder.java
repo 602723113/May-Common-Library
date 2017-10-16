@@ -80,6 +80,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的内部Id
+     *
      * @param advancementId 内部Id对象
      * @return {@link AdvancementBuilder}
      */
@@ -90,6 +91,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的标题
+     *
      * @param title 标题
      * @return {@link AdvancementBuilder}
      */
@@ -100,6 +102,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的标题
+     *
      * @param title 标题
      * @return {@link AdvancementBuilder}
      */
@@ -110,6 +113,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的描述
+     *
      * @param description 描述
      * @return {@link AdvancementBuilder}
      */
@@ -120,6 +124,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的描述
+     *
      * @param description 描述
      * @return {@link AdvancementBuilder}
      */
@@ -130,6 +135,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度所显示的物品
+     *
      * @param icon 物品 如 minecraft:stone
      * @return {@link AdvancementBuilder}
      */
@@ -140,6 +146,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度所显示的物品
+     *
      * @param material 物品
      * @return {@link AdvancementBuilder}
      */
@@ -152,6 +159,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度所显示的物品的子Id
+     *
      * @param data 子Id
      * @return {@link AdvancementBuilder}
      */
@@ -162,6 +170,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度所显示的背景,如果父级已设定则自动忽略
+     *
      * @param background 背景
      * @return {@link AdvancementBuilder}
      */
@@ -172,6 +181,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度所显示的图标框架
+     *
      * @param frame 框架
      * @return {@link AdvancementBuilder}
      */
@@ -182,6 +192,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度是否直到完成进度前在进度屏幕隐藏进度.对根进度无效,但会影响其子进度.当父进度值为true后便无法覆盖
+     *
      * @param hide {@link Boolean}
      * @return {@link AdvancementBuilder}
      */
@@ -192,6 +203,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度是否在完成后进行提示
+     *
      * @param toast {@link Boolean}
      * @return {@link AdvancementBuilder}
      */
@@ -202,6 +214,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度是否在完成后进行公告
+     *
      * @param announce {@link Boolean}
      * @return {@link AdvancementBuilder}
      */
@@ -212,6 +225,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的触发器
+     *
      * @param criteria {@link CriteriaBuilder}
      * @return {@link AdvancementBuilder}
      */
@@ -222,6 +236,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的父级进度
+     *
      * @param parent namespacedKeyObj.toString
      * @return {@link AdvancementBuilder}
      */
@@ -232,6 +247,7 @@ public class AdvancementBuilder {
 
     /**
      * 设置该进度的父级进度
+     *
      * @param key 填入namespacedKeyObj
      * @return {@link AdvancementBuilder}
      */
@@ -293,13 +309,17 @@ public class AdvancementBuilder {
         return new Gson().fromJson(ComponentSerializer.toString(component), JsonElement.class);
     }
 
+    /**
+     * 将此AdvancementBuilder的数据格式化为Json
+     * @return
+     */
     public String toJsonString() {
         JsonObject root = new JsonObject();
 
         JsonObject display = new JsonObject();
-            JsonObject icon = new JsonObject();
-            icon.addProperty("item", this.icon);
-            icon.addProperty("data", this.iconData);
+        JsonObject icon = new JsonObject();
+        icon.addProperty("item", this.icon);
+        icon.addProperty("data", this.iconData);
         display.add("icon", icon);
         display.add("title", textComponentToJson(this.title));
         display.addProperty("frame", this.frame.toString().toLowerCase());
@@ -340,6 +360,7 @@ public class AdvancementBuilder {
 
     /**
      * 将部分玩家的该进度设置为已达成
+     *
      * @param players
      * @return {@link AdvancementBuilder}
      */
@@ -349,7 +370,7 @@ public class AdvancementBuilder {
             if (!player.getAdvancementProgress(advancement).isDone()) {
                 Collection<String> remainingCriteria = player.getAdvancementProgress(advancement).getRemainingCriteria();
                 Bukkit.getLogger().info(remainingCriteria.toString());
-                for (String remainingCriterion : remainingCriteria){
+                for (String remainingCriterion : remainingCriteria) {
                     player.getAdvancementProgress(build()).awardCriteria(remainingCriterion);
                 }
             }
@@ -359,6 +380,7 @@ public class AdvancementBuilder {
 
     /**
      * 撤销部分玩家的该进度
+     *
      * @param players 玩家数组
      * @return {@link AdvancementBuilder}
      */

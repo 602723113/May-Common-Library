@@ -7,16 +7,15 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import me.may.core.builder.AdvancementBuilder;
 import me.may.core.command.CommandHandler;
 import me.may.core.listener.PlayerJoinListener;
-import org.bukkit.*;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
+import me.may.core.listener.TestListener;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +28,7 @@ public class Core extends JavaPlugin {
 
     private static Core instance;
     private ProtocolManager pm;
-    private BossBar bar;
+    //    private BossBar bar;
     public static Map<String, BlockPosition> map = Maps.newHashMap();
 
     @SuppressWarnings("deprecation")
@@ -37,11 +36,12 @@ public class Core extends JavaPlugin {
         Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[MayCore] " + ChatColor.GRAY + "已加载");
         Bukkit.getPluginCommand("core").setExecutor(new CommandHandler());
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new TestListener(), this);
 
         saveDefaultConfig();
         // Bar设置
-        bar = Bukkit.getServer().createBossBar(getConfig().getString("BossBar").replaceAll("&", "§"), BarColor.YELLOW,
-                BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
+//        bar = Bukkit.getServer().createBossBar(getConfig().getString("BossBar").replaceAll("&", "§"), BarColor.YELLOW,
+//                BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
         instance = this;
         pm = ProtocolLibrary.getProtocolManager();
 
@@ -91,15 +91,15 @@ public class Core extends JavaPlugin {
         return Arrays.asList(Bukkit.getPluginManager().getPlugins());
     }
 
-    /**
-     * 给一名玩家显示BossBar
-     *
-     * @param player 玩家
-     */
-    public void showBossBar(Player player) {
-        bar.removePlayer(player);
-        bar.addPlayer(player);
-    }
+//    /**
+//     * 给一名玩家显示BossBar
+//     *
+//     * @param player 玩家
+//     */
+//    public void showBossBar(Player player) {
+//        bar.removePlayer(player);
+//        bar.addPlayer(player);
+//    }
 
     /**
      * 取全部世界的名字

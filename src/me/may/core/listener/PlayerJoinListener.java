@@ -25,6 +25,6 @@ public class PlayerJoinListener implements Listener {
         //发送Title
         TitleUtils.sendTitle(player, Core.getInstance().getConfig().getInt("Title.FadeIn"), Core.getInstance().getConfig().getInt("Title.Stay"), Core.getInstance().getConfig().getInt("Title.FadeOut"), Core.getInstance().getConfig().getString("Title.Title".replaceAll("&", "§")), Core.getInstance().getConfig().getString("Title.SubTitle".replaceAll("&", "§")));
         //显示BossBar
-        Core.getInstance().showBossBar(player);
+//        Core.getInstance().showBossBar(player);
     }
 }
