@@ -26,8 +26,8 @@ public class NMSUtils {
     static {
         //org.bukkit.craftbukkit.vX_XX_RX;
         version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        chatSerializer = version.indexOf("v1_8_R1") != -1 ? getNMSClass("ChatSerializer") : getNMSClass("IChatBaseComponent$ChatSerializer");
-        enumTitleAction = version.indexOf("v1_8_R1") != -1 ? getNMSClass("EnumTitleAction") : getNMSClass("PacketPlayOutTitle$EnumTitleAction");
+        chatSerializer = version.contains("v1_8_R1") ? getNMSClass("ChatSerializer") : getNMSClass("IChatBaseComponent$ChatSerializer");
+        enumTitleAction = version.contains("v1_8_R1") ? getNMSClass("EnumTitleAction") : getNMSClass("PacketPlayOutTitle$EnumTitleAction");
         packetPlayOutTitle = getNMSClass("PacketPlayOutTitle");
         packetPlayOutChat = getNMSClass("PacketPlayOutChat");
     }
