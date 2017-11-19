@@ -1,0 +1,8 @@
+name: MayCore
+main: Core
+version: 1.0
+author: Zoyn
+prefix: 核心
+depend: [ProtocolLib]
+commands:
+  core:
