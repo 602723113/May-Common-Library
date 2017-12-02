@@ -3,7 +3,7 @@
 
 ### README Languages
 - English
-- [Chinese]()
+- [Chinese](https://github.com/602723113/May-Common-Library/blob/dev/README_zh_CN.md)
 
 ### Feature
 > In _MCLib_ you can enjoy the following features
