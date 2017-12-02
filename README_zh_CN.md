@@ -1,4 +1,4 @@
-# May Common Library (MCLib) [![CircleCI](https://circleci.com/gh/602723113/May-Common-Library.svg?style=shield)](https://circleci.com/gh/602723113/May-Common-Library) [![Build Status](https://travis-ci.org/602723113/May-Common-Library.svg?branch=dev)](https://travis-ci.org/602723113/May-Common-Library)
+# May Common Library (MCLib) [![CircleCI](https://circleci.com/gh/602723113/May-Common-Library.svg?style=shield)](https://circleci.com/gh/602723113/May-Common-Library) [![Build Status](https://travis-ci.org/602723113/May-Common-Library.svg?branch=dev)](https://travis-ci.org/602723113/May-Common-Library) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e8b69ada84954b13a415981844a7e376)](https://www.codacy.com/app/602723113/May-Common-Library?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=602723113/May-Common-Library&amp;utm_campaign=Badge_Grade)
 > 一个基于BukkitAPI开发的类库
 
 ### 特性
