@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Easily to send a actionbar
+ * Easy to send an actionbar
  *
  * @author Zoyn
  * @since 2016/?/?

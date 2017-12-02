@@ -6,7 +6,7 @@
 - [Chinese]()
 
 ### Feature
-> In _MCLib_ you can enjoy the following
+> In _MCLib_ you can enjoy the following features
 - Easy to use NBT
 - Easy to use NMS
 - Easy to use 1.12 new features **Advancement**

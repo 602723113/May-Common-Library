@@ -20,15 +20,15 @@ public final class EntityUtils {
      *
      * @param player 玩家
      * @return 该玩家的目标玩家
-     */
-    public static Player getTargetPlayer(Player player) {
-        List<Entity> nearbyE = player.getNearbyEntities(20.0D, 20.0D, 20.0D);
-        ArrayList<Player> nearPlayers = new ArrayList<Player>();
-        for (Entity e : nearbyE) {
-            if ((e instanceof Player)) {
-                nearPlayers.add((Player) e);
+                */
+        public static Player getTargetPlayer(Player player) {
+            List<Entity> nearbyE = player.getNearbyEntities(20.0D, 20.0D, 20.0D);
+            ArrayList<Player> nearPlayers = new ArrayList<Player>();
+            for (Entity e : nearbyE) {
+                if ((e instanceof Player)) {
+                    nearPlayers.add((Player) e);
+                }
             }
-        }
         Player target = null;
         BlockIterator bItr = new BlockIterator(player, 20);
         while (bItr.hasNext()) {
