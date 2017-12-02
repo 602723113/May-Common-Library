@@ -14,6 +14,9 @@ import java.util.Set;
 
 public class ItemStackUtils {
 
+    // Prevent accidental construction
+    private ItemStackUtils() {}
+
     /**
      * 附魔序列化
      *

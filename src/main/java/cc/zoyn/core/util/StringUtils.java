@@ -4,29 +4,33 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    public static boolean IsChinese(String str) {
+    // Prevent accidental construction
+    private StringUtils() {}
+
+    /**
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isChinese(String str) {
         Pattern pattern = Pattern.compile("[一-龥]*");
         return pattern.matcher(str).matches();
     }
 
     /**
-     * 字符串转16进制
-     * PU: --> 50553A
-     * 在线工具：http://www.bejson.com/convert/ox2str/
+     * Convert String to Hex String
      */
     public static String convertStringToHex(String str) {
         char[] chars = str.toCharArray();
-        StringBuffer hex = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            hex.append(Integer.toHexString((int) chars[i]));
+        StringBuilder hex = new StringBuilder();
+        for (char charObj : chars) {
+            hex.append(Integer.toHexString((int) charObj));
         }
         return hex.toString().toUpperCase();
     }
 
     /**
-     * 16进制转换成字符串
-     * 50553A --> PU:
-     * 在线工具：http://www.bejson.com/convert/ox2str/
+     * Convert Hex String to String
      */
     public static String convertHexToString(String hex) {
 

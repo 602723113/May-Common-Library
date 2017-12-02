@@ -13,6 +13,10 @@ import org.bukkit.inventory.ItemStack;
  */
 public class InventoryUtils {
 
+    // Prevent accidental construction
+    private InventoryUtils() {
+    }
+
     /**
      * 检查玩家是否拥有某物品
      *
@@ -25,11 +29,13 @@ public class InventoryUtils {
         ItemStack[] invItem = inventory.getContents();
         int i = 0;
         if (i < invItem.length) {
-            invItem[i].equals(is);
-            return true;
+            if (invItem[i].equals(is)) {
+                return true;
+            }
         }
         return false;
     }
+
 
     /**
      * 安全的给予物品

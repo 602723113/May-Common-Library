@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Create By IDEA
+ * Easily to use Baidu API
  *
  * @author Zoyn
  * @since 2017-09-10
@@ -16,10 +16,12 @@ public class BaiduAPIUtils {
 
     /**
      * 获取IP的信息
+     * <p>
+     * get IP Information
      *
      * @param ip     ip
-     * @param apiKey 用户的apiKey
-     * @return 一段JSON字符串
+     * @param apiKey your apiKey
+     * @return a JSON String
      */
     public static String getIPInformation(String ip, String apiKey) {
         BufferedReader reader = null;
@@ -31,9 +33,9 @@ public class BaiduAPIUtils {
         try {
             URL url = new URL(http.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            // 设置请求方法
+            // Set request method
             connection.setRequestMethod("GET");
-            // 填入apikey
+            // Fill in apikey
             connection.setRequestProperty("apikey", apiKey);
             connection.connect();
 

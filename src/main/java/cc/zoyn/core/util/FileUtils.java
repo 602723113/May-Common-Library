@@ -16,6 +16,9 @@ import java.util.zip.ZipOutputStream;
  */
 public class FileUtils {
 
+    // Prevent accidental construction
+    private FileUtils() {}
+
     /**
      * 移动 文件或者文件夹
      *

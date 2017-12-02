@@ -7,13 +7,16 @@ import java.util.Date;
 
 public class TimeUtils {
 
-    private static final int YEAR = 365 * 24 * 60 * 60;// 年
-    private static final int MONTH = 30 * 24 * 60 * 60;// 月
-    private static final int DAY = 24 * 60 * 60;// 天
-    private static final int HOUR = 60 * 60;// 小时
-    private static final int MINUTE = 60;// 分钟
-    private static Calendar calendar = Calendar.getInstance();
+    // Prevent accidental construction
+    private TimeUtils() {
+    }
 
+    private static final int YEAR = 365 * 24 * 60 * 60; // 年
+    private static final int MONTH = 30 * 24 * 60 * 60; // 月
+    private static final int DAY = 24 * 60 * 60; // 天
+    private static final int HOUR = 60 * 60; // 小时
+    private static final int MINUTE = 60; // 分钟
+    private static Calendar calendar = Calendar.getInstance();
 
     /**
      * 根据时间戳获取描述性时间，如3分钟前，1天前

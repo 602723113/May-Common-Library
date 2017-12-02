@@ -1,8 +1,6 @@
-name: MayCore
-main: Core
-version: 1.0
+name: May-Common-Library
+main: cc.zoyn.core.Core
+version: 1.0.0
 author: Zoyn
-prefix: 核心
+prefix: Core
 depend: [ProtocolLib]
-commands:
-  core:

@@ -10,7 +10,12 @@ import java.util.List;
 
 public class MathUtils {
 
+    // Prevent accidental construction
+    private MathUtils() {
+    }
+
     /**
+     * get
      * 取两坐标点的距离<br />
      * 使用空间两点距离公式计算: √(X2 - X1)^2 + (Y2 - Y1)^2 + (Z2 - Z1)^2
      *

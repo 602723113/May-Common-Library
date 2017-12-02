@@ -7,7 +7,8 @@ package cc.zoyn.core.util;
  */
 public class JsonBuilderUtils {
 
-    public static final String[] REPLACEMENT_CHARS;
+    private static final String[] REPLACEMENT_CHARS;
+    private StringBuilder json;
 
     static {
         REPLACEMENT_CHARS = new String[128];
@@ -22,8 +23,6 @@ public class JsonBuilderUtils {
         REPLACEMENT_CHARS['\r'] = "\\r";
         REPLACEMENT_CHARS['\f'] = "\\f";
     }
-
-    StringBuilder json;
 
     public JsonBuilderUtils() {
         json = new StringBuilder();

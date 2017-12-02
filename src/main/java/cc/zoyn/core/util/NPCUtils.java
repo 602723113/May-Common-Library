@@ -1,5 +1,6 @@
 package cc.zoyn.core.util;
 
+import cc.zoyn.core.Core;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -15,7 +16,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import cc.zoyn.core.Core;
 import net.minecraft.server.v1_12_R1.*;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
 import org.bukkit.Bukkit;
@@ -31,6 +31,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class NPCUtils {
+
+    // Prevent accidental construction
+    private NPCUtils() {
+    }
 
     public static String[] getFromName(String name) {
         try {
@@ -122,7 +126,7 @@ public class NPCUtils {
 
         //已命名实体生成
         PacketContainer packet2 = pm.createPacket(PacketType.Play.Server.NAMED_ENTITY_SPAWN);
-		/*
+        /*
 		 * NamedEntitySpawn
 		 * private int a;
 		 * private UUID b;

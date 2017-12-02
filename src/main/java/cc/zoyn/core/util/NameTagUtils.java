@@ -1,5 +1,6 @@
 package cc.zoyn.core.util;
 
+import cc.zoyn.core.util.nms.NMSUtils;
 import com.mojang.authlib.GameProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -7,6 +8,10 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Field;
 
 public class NameTagUtils {
+
+    // Prevent accidental construction
+    private NameTagUtils() {
+    }
 
     public static void changeName(String name, Player player) {
         try {

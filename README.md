@@ -1,19 +1,26 @@
-# MayCore
-一个基于BukkitAPI开发的类库
+# May Common Library (MCLib) [![CircleCI](https://circleci.com/gh/602723113/May-Common-Library.svg?style=shield)](https://circleci.com/gh/602723113/May-Common-Library) [![Build Status](https://travis-ci.org/602723113/May-Common-Library.svg?branch=dev)](https://travis-ci.org/602723113/May-Common-Library)
+> A class library based on BukkitAPI development
 
-## 它能为你做些什么?
-##### 在MayCore中你可以享受以下内容
-- 简易的构造Title
-- 简易的构造ActionBar
-- 简易的构造Tellraw
-- 简易的构造Book
-- [API]简易的使用1.12的新特性Advancement
-- 已封装好的BungeeCordAPI
-- 封装了许许多多的Util
+### README Languages
+- English
+- [Chinese]()
 
-## 编译
-本项目使用 maven 进行管理  
-构建请使用
-'''
+### Feature
+> In _MCLib_ you can enjoy the following
+- Easy to use NBT
+- Easy to use NMS
+- Easy to use 1.12 new features **Advancement**
+- A lot of Utils
+- ...
+
+### License
+  - This project follows the MIT protocol  
+  
+### Compile
+This project uses Maven for management  
+Construction please use command  
+```
   mvn clean install package
-'''
+```
+  
+**Like this project? Why not put it a star**

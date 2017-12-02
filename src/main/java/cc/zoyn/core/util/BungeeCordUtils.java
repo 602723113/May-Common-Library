@@ -1,7 +1,7 @@
 package cc.zoyn.core.util;
 
-import com.google.common.collect.Iterables;
 import cc.zoyn.core.Core;
+import com.google.common.collect.Iterables;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -16,6 +16,10 @@ import java.io.IOException;
  * @author Zoyn
  */
 public class BungeeCordUtils implements PluginMessageListener {
+
+    // Prevent accidental construction
+    private BungeeCordUtils() {
+    }
 
     /**
      * 将玩家传送至某子服
@@ -34,7 +38,7 @@ public class BungeeCordUtils implements PluginMessageListener {
             System.out.println("错误: " + e.getMessage());
         }
         if (Bukkit.getOnlinePlayers() != null) {
-            Player player = (Player) Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
             player.sendPluginMessage(Core.getInstance(), "BungeeCord", byteOut.toByteArray());
         }
     }
@@ -56,7 +60,7 @@ public class BungeeCordUtils implements PluginMessageListener {
             System.out.println("错误: " + e.getMessage());
         }
         if (Bukkit.getOnlinePlayers() != null) {
-            Player player = (Player) Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
             player.sendPluginMessage(Core.getInstance(), "BungeeCord", byteOut.toByteArray());
         }
     }
@@ -71,7 +75,7 @@ public class BungeeCordUtils implements PluginMessageListener {
             System.out.println("错误: " + e.getMessage());
         }
         if (Bukkit.getOnlinePlayers() != null) {
-            Player player = (Player) Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
             player.sendPluginMessage(Core.getInstance(), "BukkitCoreMessage", byteOut.toByteArray());
         }
     }

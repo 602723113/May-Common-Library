@@ -11,7 +11,11 @@ import java.util.List;
 
 public class EntityUtils {
 
+    // Prevent accidental construction
+    private EntityUtils() {}
+
     /**
+     * get player target <br />
      * 取目标玩家
      *
      * @param player 玩家

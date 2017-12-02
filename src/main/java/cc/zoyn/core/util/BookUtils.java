@@ -44,8 +44,8 @@ public class BookUtils {
     /**
      * 打开一个虚拟的书
      *
-     * @param item   书
      * @param player 玩家
+     * @param book   书
      * @return 布尔值[true成功/false失败]
      */
     public static boolean openBook(Player player, Book book) {
@@ -62,7 +62,6 @@ public class BookUtils {
         }
         player.getInventory().setItemInMainHand(held);
         return initialised;
-
     }
 
     /**

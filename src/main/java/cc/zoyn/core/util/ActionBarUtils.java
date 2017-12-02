@@ -11,36 +11,39 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * ActionBar - 工具类
+ * Easily to send a actionbar
  *
  * @author Zoyn
  * @since 2016/?/?
  */
-public class ActionBarUtils {
+public final class ActionBarUtils {
+
+    // Prevent accidental construction
+    private ActionBarUtils() {
+    }
 
     /**
      * 给一名玩家发送actionbar
+     * <p>
+     * send a actionbar to player
      *
-     * @param player 玩家
-     * @param msg    信息
+     * @param player playerObj
+     * @param msg    message
      */
     public static void sendBar(Player player, String msg) {
-        msg = ChatColor.translateAlternateColorCodes('&', msg);
-        //获取Pl管理
-        ProtocolManager pm = ProtocolLibrary.getProtocolManager();
-        PacketContainer packet = pm.createPacket(PacketType.Play.Server.CHAT);
-        //nms内封包结构为
-        /*	private IChatBaseComponent a;
-         *	public BaseComponent[] components; //可以不用填
-		 *	private byte b;
-		*/
-        //依次写入数据
-        packet.getChatComponents().write(0, WrappedChatComponent.fromText(msg));
+        String translatedMessage = ChatColor.translateAlternateColorCodes('&', msg);
+
+        //get protocol manager instance
+        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+        PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.CHAT);
+
+        //write data
+        packet.getChatComponents().write(0, WrappedChatComponent.fromText(translatedMessage));
         packet.getBytes().write(0, (byte) 2);
 
-        //发送数据包
+        // send packet
         try {
-            pm.sendServerPacket(player, packet, false);
+            protocolManager.sendServerPacket(player, packet, false);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }

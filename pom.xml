@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cc.zoyn.core</groupId>
-    <artifactId>MayCore</artifactId>
+    <artifactId>May-Common-Library</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>MayCore</name>
+    <name>May-Common-Library</name>
     <developers>
         <developer>
             <name>Zoyn</name>
@@ -124,6 +124,12 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
             </plugin>
         </plugins>
     </build>

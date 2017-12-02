@@ -1,6 +1,6 @@
 package cc.zoyn.core.dto;
 
-import cc.zoyn.core.minecraft.JsonImpl;
+import cc.zoyn.core.modules.tellraw.JsonImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
