@@ -82,7 +82,7 @@ public final class BungeeCordUtils implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (!channel.equals("BukkitCoreMessage")) {
+        if (!"BukkitCoreMessage".equals(channel)) {
             return;
         }
     }

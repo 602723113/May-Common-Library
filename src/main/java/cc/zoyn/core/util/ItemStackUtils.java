@@ -1,5 +1,6 @@
 package cc.zoyn.core.util;
 
+import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -56,17 +57,17 @@ public final class ItemStackUtils {
      *
      * @param is   物品(ItemStack类型)
      * @param Line 行数
-     * @param lore 要设置的Lore
+     * @param msg 要设置的Lore
      */
-    public static void setLore(ItemStack is, int Line, String lore) {
-        List<String> lores = new ArrayList<String>();
+    public static void setLore(ItemStack is, int Line, String msg) {
+        List<String> lore = Lists.newArrayList();
         if (is == null || is.getType() == Material.AIR) {
-            throw new NullPointerException();
+            return;
         }
         if (is.getItemMeta().hasLore()) {
-            lores.addAll(is.getItemMeta().getLore());
-            lores.set((Line - 1), lore.replaceAll("&", "§"));
-            is.getItemMeta().setLore(lores);
+            lore.addAll(is.getItemMeta().getLore());
+            lore.set((Line - 1), msg.replaceAll("&", "§"));
+            is.getItemMeta().setLore(lore);
             is.setItemMeta(is.getItemMeta());
         } else {
             return;
@@ -77,12 +78,12 @@ public final class ItemStackUtils {
      * 添加Lore
      *
      * @param is   需要设置的物品
-     * @param lore 待添加的String
+     * @param msg 待添加的String
      * @return 该物品的ItemStack对象
      */
-    public static ItemStack addLore(ItemStack is, String lore) {
+    public static ItemStack addLore(ItemStack is, String msg) {
         if (is != null) {
-            lore = ChatColor.translateAlternateColorCodes('&', lore);
+            String lore = ChatColor.translateAlternateColorCodes('&', msg);
             ItemMeta im = is.getItemMeta();
             if (im.hasLore()) {
                 List<String> l = im.getLore();

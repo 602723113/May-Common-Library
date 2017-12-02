@@ -1,12 +1,8 @@
 package cc.zoyn.core.util;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class MathUtils {
 
@@ -15,7 +11,7 @@ public final class MathUtils {
     }
 
     /**
-     * get
+     * get two location's distance
      * 取两坐标点的距离<br />
      * 使用空间两点距离公式计算: √(X2 - X1)^2 + (Y2 - Y1)^2 + (Z2 - Z1)^2
      *
@@ -37,7 +33,7 @@ public final class MathUtils {
     }
 
     /**
-     * 取背后的向量
+     * 取坐标后的向量
      *
      * @param loc 坐标
      * @return {@link Vector}
@@ -48,7 +44,13 @@ public final class MathUtils {
         return new Vector(newX - loc.getX(), 0.0D, newZ - loc.getZ());
     }
 
-    public static String getCardinalDirection(Player player) {
+    /**
+     * get player's direction name
+     *
+     * @param player a player instance
+     * @return the direction name
+     */
+    public static String getDirectionName(Player player) {
         double rotation = (player.getLocation().getYaw() - 90.0F) % 360.0F;
         if (rotation < 0.0D) {
             rotation += 360.0D;
@@ -76,31 +78,5 @@ public final class MathUtils {
         Vector from = new Vector(first_location.getX(), first_location.getY(), first_location.getZ());
         Vector to = new Vector(second_location.getX(), second_location.getY(), second_location.getZ());
         return to.subtract(from);
-    }
-
-    /**
-     * 取两点之间的方块List
-     *
-     * @param loc1 坐标1
-     * @param loc2 坐标2
-     * @return 方块集合
-     */
-    public static List<Block> blocksFromTwoPoints(Location loc1, Location loc2) {
-        ArrayList<Block> blocks = new ArrayList<Block>();
-        int topBlockX = loc1.getBlockX() < loc2.getBlockX() ? loc2.getBlockX() : loc1.getBlockX();
-        int bottomBlockX = loc1.getBlockX() > loc2.getBlockX() ? loc2.getBlockX() : loc1.getBlockX();
-        int topBlockY = loc1.getBlockY() < loc2.getBlockY() ? loc2.getBlockY() : loc1.getBlockY();
-        int bottomBlockY = loc1.getBlockY() > loc2.getBlockY() ? loc2.getBlockY() : loc1.getBlockY();
-        int topBlockZ = loc1.getBlockZ() < loc2.getBlockZ() ? loc2.getBlockZ() : loc1.getBlockZ();
-        int bottomBlockZ = loc1.getBlockZ() > loc2.getBlockZ() ? loc2.getBlockZ() : loc1.getBlockZ();
-        for (int x = bottomBlockX; x <= topBlockX; x++) {
-            for (int z = bottomBlockZ; z <= topBlockZ; z++) {
-                for (int y = bottomBlockY; y <= topBlockY; y++) {
-                    Block block = loc1.getWorld().getBlockAt(x, y, z);
-                    blocks.add(block);
-                }
-            }
-        }
-        return blocks;
     }
 }

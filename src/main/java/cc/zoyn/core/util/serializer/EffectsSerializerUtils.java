@@ -21,7 +21,7 @@ import java.util.List;
 public final class EffectsSerializerUtils {
 
     // Prevent accidental construction
-    public EffectsSerializerUtils() {
+    private EffectsSerializerUtils() {
     }
 
     /**

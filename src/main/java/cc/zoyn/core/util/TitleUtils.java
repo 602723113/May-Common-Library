@@ -7,7 +7,6 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,10 +16,14 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Zoyn
  * @since 2016/12/26
- *
+ * <p>
  * update 2017/8/05
  */
 public final class TitleUtils {
+
+    // Prevent accidental construction
+    private TitleUtils() {
+    }
 
     /**
      * 给一个玩家发送Title信息 1.8+
@@ -32,14 +35,13 @@ public final class TitleUtils {
      * @param title    主标题
      * @param subTitle 副标题
      */
-    public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title,
-                                 String subTitle) {
+    public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subTitle) {
         // 获取PL管理
         ProtocolManager pm = ProtocolLibrary.getProtocolManager();
         PacketContainer packet = null;
         if (title != null) {
-            title = ChatColor.translateAlternateColorCodes('&', title); // 支持&颜色代码
-            title = title.replaceAll("%player%", player.getName());
+            String translatedTitle = ChatColor.translateAlternateColorCodes('&', title);
+            translatedTitle = translatedTitle.replaceAll("%player%", player.getName());
             // 创建标题数据包
             packet = pm.createPacket(PacketType.Play.Server.TITLE);
             // nms内封包结构为
@@ -62,8 +64,9 @@ public final class TitleUtils {
         }
 
         if (subTitle != null) {
-            subTitle = ChatColor.translateAlternateColorCodes('&', subTitle); // 支持&颜色代码
-            subTitle = subTitle.replaceAll("%player%", player.getName());
+            String translatedSubTitle = ChatColor.translateAlternateColorCodes('&', subTitle);
+            translatedSubTitle = translatedSubTitle.replaceAll("%player%", player.getName());
+
             packet = pm.createPacket(PacketType.Play.Server.TITLE);
             packet.getTitleActions().write(0, EnumWrappers.TitleAction.SUBTITLE);
             packet.getChatComponents().write(0, WrappedChatComponent.fromText(subTitle));

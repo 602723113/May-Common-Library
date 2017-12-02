@@ -7,16 +7,16 @@ import java.util.Date;
 
 public final class TimeUtils {
 
-    // Prevent accidental construction
-    private TimeUtils() {
-    }
-
     private static final int YEAR = 365 * 24 * 60 * 60; // 年
     private static final int MONTH = 30 * 24 * 60 * 60; // 月
     private static final int DAY = 24 * 60 * 60; // 天
     private static final int HOUR = 60 * 60; // 小时
     private static final int MINUTE = 60; // 分钟
     private static Calendar calendar = Calendar.getInstance();
+
+    // Prevent accidental construction
+    private TimeUtils() {
+    }
 
     /**
      * 根据时间戳获取描述性时间，如3分钟前，1天前
@@ -123,13 +123,13 @@ public final class TimeUtils {
     public static String getPreDate(String field, int amount) {
         calendar.setTime(new Date());
         if (field != null && !field.equals("")) {
-            if (field.equals("y")) {
+            if ("y".equals(field)) {
                 calendar.add(Calendar.YEAR, amount);
-            } else if (field.equals("M")) {
+            } else if ("M".equals(field)) {
                 calendar.add(Calendar.MONTH, amount);
-            } else if (field.equals("d")) {
+            } else if ("d".equals(field)) {
                 calendar.add(Calendar.DAY_OF_MONTH, amount);
-            } else if (field.equals("H")) {
+            } else if ("H".equals(field)) {
                 calendar.add(Calendar.HOUR, amount);
             }
         } else {
@@ -150,13 +150,13 @@ public final class TimeUtils {
     public static String getPreDate(Date date, String field, int amount) {
         calendar.setTime(date);
         if (field != null && !field.equals("")) {
-            if (field.equals("y")) {
+            if ("y".equals(field)) {
                 calendar.add(Calendar.YEAR, amount);
-            } else if (field.equals("M")) {
+            } else if ("M".equals(field)) {
                 calendar.add(Calendar.MONTH, amount);
-            } else if (field.equals("d")) {
+            } else if ("d".equals(field)) {
                 calendar.add(Calendar.DAY_OF_MONTH, amount);
-            } else if (field.equals("H")) {
+            } else if ("H".equals(field)) {
                 calendar.add(Calendar.HOUR, amount);
             }
         } else {
