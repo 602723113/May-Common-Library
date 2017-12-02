@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class ItemStackUtils {
+public final class ItemStackUtils {
 
     // Prevent accidental construction
     private ItemStackUtils() {}

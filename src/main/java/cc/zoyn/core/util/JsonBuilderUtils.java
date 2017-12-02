@@ -5,7 +5,7 @@ package cc.zoyn.core.util;
  *
  * @author Zoyn
  */
-public class JsonBuilderUtils {
+public final class JsonBuilderUtils {
 
     private static final String[] REPLACEMENT_CHARS;
     private StringBuilder json;

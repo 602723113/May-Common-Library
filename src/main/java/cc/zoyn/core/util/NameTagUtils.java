@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 
-public class NameTagUtils {
+public final class NameTagUtils {
 
     // Prevent accidental construction
     private NameTagUtils() {

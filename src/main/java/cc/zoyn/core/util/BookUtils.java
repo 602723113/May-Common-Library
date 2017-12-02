@@ -17,7 +17,7 @@ import java.util.List;
  * @author Zoyn
  * @since 2017/?/?
  */
-public class BookUtils {
+public final class BookUtils {
 
     private static boolean initialised = false;
     private static Method getHandle;
@@ -35,6 +35,10 @@ public class BookUtils {
             Bukkit.getServer().getLogger().warning("Cannot force open book!");
             initialised = false;
         }
+    }
+
+    // Prevent accidental construction
+    private BookUtils() {
     }
 
     public static boolean isInitialised() {

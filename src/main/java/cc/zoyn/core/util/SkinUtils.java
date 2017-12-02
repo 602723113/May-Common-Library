@@ -5,7 +5,7 @@ import net.minecraft.server.v1_12_R1.EntityPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class SkinUtils {
+public final class SkinUtils {
 
     // Prevent accidental construction
     private SkinUtils() {

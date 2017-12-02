@@ -15,10 +15,14 @@ import java.lang.reflect.Method;
  * @version 1.1 更新 2017/8/2 更新内容: 修复兼容1.11与1.12的问题
  * @since 2017/?/?
  */
-public class ItemSerializerUtils {
+public final class ItemSerializerUtils {
 
     private static Method WRITE_NBT;
     private static Method READ_NBT;
+
+    // Prevent accidental construction
+    private ItemSerializerUtils() {
+    }
 
     /**
      * 将物品序列化为Base64数据

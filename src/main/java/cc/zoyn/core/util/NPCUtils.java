@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
-public class NPCUtils {
+public final class NPCUtils {
 
     // Prevent accidental construction
     private NPCUtils() {

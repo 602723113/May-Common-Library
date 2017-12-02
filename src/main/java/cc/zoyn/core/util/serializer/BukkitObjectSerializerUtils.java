@@ -13,7 +13,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BukkitObjectSerializerUtils {
+public final class BukkitObjectSerializerUtils {
+
+    // Prevent accidental construction
+    private BukkitObjectSerializerUtils() {
+    }
 
     /**
      * 单对象序列化为字符串

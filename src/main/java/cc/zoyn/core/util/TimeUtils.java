@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TimeUtils {
+public final class TimeUtils {
 
     // Prevent accidental construction
     private TimeUtils() {

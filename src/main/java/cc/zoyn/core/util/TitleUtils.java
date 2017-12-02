@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
  *
  * update 2017/8/05
  */
-public class TitleUtils {
+public final class TitleUtils {
 
     /**
      * 给一个玩家发送Title信息 1.8+

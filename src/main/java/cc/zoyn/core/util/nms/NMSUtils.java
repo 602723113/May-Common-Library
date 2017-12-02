@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @author Zoyn
  * @since 2017/4/26
  */
-public class NMSUtils {
+public final class NMSUtils {
 
     private static Class<?> chatSerializer;
     private static Class<?> enumTitleAction;

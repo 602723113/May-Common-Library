@@ -18,7 +18,11 @@ import java.util.List;
  * @author Zoyn
  * @since 2017/8/2
  */
-public class EffectsSerializerUtils {
+public final class EffectsSerializerUtils {
+
+    // Prevent accidental construction
+    public EffectsSerializerUtils() {
+    }
 
     /**
      * 将药水效果序列化为Base64数据

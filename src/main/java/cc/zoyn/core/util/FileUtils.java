@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Zoyn
  */
-public class FileUtils {
+public final class FileUtils {
 
     // Prevent accidental construction
     private FileUtils() {}

@@ -8,7 +8,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MathUtils {
+public final class MathUtils {
 
     // Prevent accidental construction
     private MathUtils() {

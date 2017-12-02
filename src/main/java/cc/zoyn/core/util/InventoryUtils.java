@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
  * @author Zoyn
  * @since 2016/?/?
  */
-public class InventoryUtils {
+public final class InventoryUtils {
 
     // Prevent accidental construction
     private InventoryUtils() {

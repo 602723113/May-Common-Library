@@ -14,7 +14,11 @@ import java.util.UUID;
  * @author Zoyn
  * @since 2016/12/26
  */
-public class BasicUtils {
+public final class BasicUtils {
+
+    // Prevent accidental construction
+    private BasicUtils() {
+    }
 
 //    /**
 //     * 给一个玩家发送json数据

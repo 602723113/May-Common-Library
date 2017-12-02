@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * @author Zoyn
  */
-public class BungeeCordUtils implements PluginMessageListener {
+public final class BungeeCordUtils implements PluginMessageListener {
 
     // Prevent accidental construction
     private BungeeCordUtils() {

@@ -12,7 +12,11 @@ import java.net.URL;
  * @author Zoyn
  * @since 2017-09-10
  */
-public class BaiduAPIUtils {
+public final class BaiduAPIUtils {
+
+    // Prevent accidental construction
+    private BaiduAPIUtils() {
+    }
 
     /**
      * 获取IP的信息

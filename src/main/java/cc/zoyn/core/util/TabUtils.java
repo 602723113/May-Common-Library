@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 
-public class TabUtils {
+public final class TabUtils {
 
     // Prevent accidental construction
     private TabUtils() {

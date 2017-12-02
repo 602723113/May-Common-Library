@@ -9,7 +9,7 @@ import org.bukkit.util.BlockIterator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityUtils {
+public final class EntityUtils {
 
     // Prevent accidental construction
     private EntityUtils() {}

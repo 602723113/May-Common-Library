@@ -2,7 +2,7 @@ package cc.zoyn.core.util;
 
 import java.util.regex.Pattern;
 
-public class StringUtils {
+public final class StringUtils {
 
     // Prevent accidental construction
     private StringUtils() {}
