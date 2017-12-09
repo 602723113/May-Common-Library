@@ -20,16 +20,15 @@ public final class InventoryUtils {
     /**
      * 检查玩家是否拥有某物品
      *
-     * @param player 玩家
-     * @param is     物品(ItemStack类型)
+     * @param player    玩家
+     * @param itemStack 物品
      * @return Boolean
      */
-    public static boolean hasItem(Player player, ItemStack is) {
+    public static boolean hasItem(Player player, ItemStack itemStack) {
         Inventory inventory = player.getInventory();
         ItemStack[] invItem = inventory.getContents();
-        int i = 0;
-        if (i < invItem.length) {
-            if (invItem[i].equals(is)) {
+        for (ItemStack item : invItem) {
+            if (item.equals(itemStack)) {
                 return true;
             }
         }

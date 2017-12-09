@@ -1,6 +1,7 @@
 package cc.zoyn.core.util;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -16,7 +17,8 @@ import java.util.Set;
 public final class ItemStackUtils {
 
     // Prevent accidental construction
-    private ItemStackUtils() {}
+    private ItemStackUtils() {
+    }
 
     /**
      * 附魔序列化
@@ -57,7 +59,7 @@ public final class ItemStackUtils {
      *
      * @param is   物品(ItemStack类型)
      * @param Line 行数
-     * @param msg 要设置的Lore
+     * @param msg  要设置的Lore
      */
     public static void setLore(ItemStack is, int Line, String msg) {
         List<String> lore = Lists.newArrayList();
@@ -77,28 +79,27 @@ public final class ItemStackUtils {
     /**
      * 添加Lore
      *
-     * @param is   需要设置的物品
+     * @param is  需要设置的物品
      * @param msg 待添加的String
      * @return 该物品的ItemStack对象
      */
     public static ItemStack addLore(ItemStack is, String msg) {
-        if (is != null) {
-            String lore = ChatColor.translateAlternateColorCodes('&', msg);
-            ItemMeta im = is.getItemMeta();
-            if (im.hasLore()) {
-                List<String> l = im.getLore();
-                l.add(lore);
-                im.setLore(l);
-                is.setItemMeta(im);
-                return is;
-            }
-            List<String> l = new ArrayList<>();
+        Validate.notNull(is);
+
+        String lore = ChatColor.translateAlternateColorCodes('&', msg);
+        ItemMeta im = is.getItemMeta();
+        if (im.hasLore()) {
+            List<String> l = im.getLore();
             l.add(lore);
             im.setLore(l);
             is.setItemMeta(im);
             return is;
         }
-        throw new NullPointerException();
+        List<String> l = new ArrayList<>();
+        l.add(lore);
+        im.setLore(l);
+        is.setItemMeta(im);
+        return is;
     }
 
     /**
