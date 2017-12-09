@@ -18,9 +18,9 @@ import static cc.zoyn.core.util.reflect.ReflectionUtils.getMethod;
 /**
  * 书本 - 工具类
  * <br />
- * Easy to open a book with the specified json
- * <br />
  * 简易的打开一个带有特定json的书
+ * <br />
+ * Easy to open a book with the specified json
  *
  * @author Zoyn
  * @since 2017/?/?

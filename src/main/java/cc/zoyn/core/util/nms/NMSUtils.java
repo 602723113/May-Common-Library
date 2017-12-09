@@ -19,6 +19,7 @@ public final class NMSUtils {
     private static String version;
     private static Method asNMSCopyMethod;
     private static Method stringAsIChatBaseComponentMethod;
+    private static Method craftBukkitEntityPlayerGetHandleMethod;
 
     // Prevent accidental construction
     private NMSUtils() {
@@ -29,6 +30,7 @@ public final class NMSUtils {
         version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
         try {
             stringAsIChatBaseComponentMethod = ReflectionUtils.getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
+            craftBukkitEntityPlayerGetHandleMethod = ReflectionUtils.getMethod(getOBCClass("inventory.CraftItemStack"), "getHandle");
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -132,7 +134,7 @@ public final class NMSUtils {
      */
     public static Object getNMSPlayer(Player player) {
         try {
-            return player.getClass().getMethod("getHandle").invoke(player);
+            return ReflectionUtils.invokeMethod(craftBukkitEntityPlayerGetHandleMethod, player);
         } catch (Exception e) {
             e.printStackTrace();
         }

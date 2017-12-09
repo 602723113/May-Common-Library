@@ -5,12 +5,14 @@ import java.util.regex.Pattern;
 public final class StringUtils {
 
     // Prevent accidental construction
-    private StringUtils() {}
+    private StringUtils() {
+    }
 
     /**
+     * Determine whether a string is Chinese
      *
-     * @param str
-     * @return
+     * @param str string object
+     * @return true mean yes / false mean no
      */
     public static boolean isChinese(String str) {
         Pattern pattern = Pattern.compile("[一-龥]*");

@@ -16,8 +16,6 @@ public final class TimeUtils {
     private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String CHINESE_DATE_FORMAT = "yyyy年MM月dd日 HH:mm:ss";
 
-    private static Calendar calendar = Calendar.getInstance();
-
     // Prevent accidental construction
     private TimeUtils() {
     }

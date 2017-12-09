@@ -127,7 +127,7 @@ public final class NPCUtils {
         //已命名实体生成
         PacketContainer packet2 = pm.createPacket(PacketType.Play.Server.NAMED_ENTITY_SPAWN);
         /*
-		 * NamedEntitySpawn
+         * NamedEntitySpawn
 		 * private int a;
 		 * private UUID b;
 		 * private double c;
@@ -170,4 +170,5 @@ public final class NPCUtils {
             }, 5);
         }
     }
+
 }

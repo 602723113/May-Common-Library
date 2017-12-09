@@ -340,5 +340,4 @@ public final class ReflectionUtils {
     public static boolean hasMethod(String classPath, String methodName, Class<?>... parameterTypes) throws ClassNotFoundException {
         return hasMethod(Class.forName(classPath), methodName, parameterTypes);
     }
-
 }
