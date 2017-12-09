@@ -22,21 +22,32 @@ public final class ReflectionUtils {
     /**
      * get field objects by using field names
      *
-     * @param clazz     classObj
+     * @param clazz     class's object
      * @param fieldName field's name
      * @return {@link Field}
+     * @throws NoSuchFieldException If the field with the specified name cannot be found
      * @see #hasField(Class, String)
      */
-    public static Field getFieldByFieldName(Class<?> clazz, String fieldName) {
+    public static Field getFieldByFieldName(Class<?> clazz, String fieldName) throws NoSuchFieldException {
         Field field = null;
         if (hasField(clazz, fieldName)) {
-            try {
-                field = clazz.getField(fieldName);
-            } catch (NoSuchFieldException ignored) {
-            }
+            field = clazz.getField(fieldName);
         }
         return field;
     }
+
+    /**
+     * @param classPath class's path
+     * @param fieldName field's name
+     * @return {@link Field}
+     * @throws ClassNotFoundException If the class cannot be found
+     * @throws NoSuchFieldException   If the field with the specified name cannot be found
+     * @see #getFieldByFieldName(Class, String)
+     */
+    public static Field getFieldByFieldName(String classPath, String fieldName) throws ClassNotFoundException, NoSuchFieldException {
+        return getFieldByFieldName(Class.forName(classPath), fieldName);
+    }
+
 
     /**
      * get a Value field
@@ -47,7 +58,7 @@ public final class ReflectionUtils {
      * @throws IllegalAccessException If the field is accessible
      * @see #getFieldByFieldName(Class, String)
      */
-    public static Object getValueByFieldName(Object obj, String fieldName) throws IllegalAccessException {
+    public static Object getValueByFieldName(Object obj, String fieldName) throws IllegalAccessException, NoSuchFieldException {
         Field field = getFieldByFieldName(obj.getClass(), fieldName);
         Object value = null;
 
@@ -85,7 +96,7 @@ public final class ReflectionUtils {
     /**
      * get a class's constructor
      *
-     * @param clazz          classObj
+     * @param clazz          class's object
      * @param parameterTypes parameters
      * @return {@link Constructor}
      * @throws NoSuchMethodException If the constructor with the specified parameter types cannot be found
@@ -98,6 +109,21 @@ public final class ReflectionUtils {
         }
         return constructor;
     }
+
+    /**
+     * get a class's constructor
+     *
+     * @param classPath      class's path
+     * @param parameterTypes parameters
+     * @return {@link Constructor}
+     * @throws ClassNotFoundException If the class cannot be found
+     * @throws NoSuchMethodException  If the constructor with the specified parameter types cannot be found
+     * @see #getConstructor(Class, Class[])
+     */
+    public static Constructor<?> getConstructor(String classPath, Class<?>... parameterTypes) throws ClassNotFoundException, NoSuchMethodException {
+        return getConstructor(Class.forName(classPath), parameterTypes);
+    }
+
 
     /**
      * Constructing an object with a constructor
@@ -116,7 +142,7 @@ public final class ReflectionUtils {
     /**
      * get a method in a class
      *
-     * @param clazz          classObj
+     * @param clazz          class's object
      * @param methodName     method's name
      * @param parameterTypes the method's arguments
      * @return {@link Method}
@@ -130,9 +156,24 @@ public final class ReflectionUtils {
     }
 
     /**
+     * get a method in a class
+     *
+     * @param classPath      class's path
+     * @param methodName     method's name
+     * @param parameterTypes the method's arguments
+     * @return {@link Method}
+     * @throws ClassNotFoundException If the class cannot be found
+     * @throws NoSuchMethodException  If the method with the specified parameter types cannot be found
+     * @see #getMethod(Class, String, Class[])
+     */
+    public static Method getMethod(String classPath, String methodName, Class<?>... parameterTypes) throws ClassNotFoundException, NoSuchMethodException {
+        return getMethod(Class.forName(classPath), methodName, parameterTypes);
+    }
+
+    /**
      * method of invocation of object
      *
-     * @param method    methodObj
+     * @param method    method's object
      * @param object    objects that need invoke
      * @param arguments the method's arguments
      * @return {@link Object}
@@ -146,7 +187,7 @@ public final class ReflectionUtils {
     /**
      * check a class has a specified field
      *
-     * @param clazz     classObj
+     * @param clazz     class's object
      * @param fieldName field's name
      * @return true -> yes, false -> no
      */
@@ -165,7 +206,7 @@ public final class ReflectionUtils {
     /**
      * check a class has a specified field
      *
-     * @param clazz  classObj
+     * @param clazz  class's object
      * @param filter filter obj
      * @return true -> yes, false -> no
      */
@@ -184,9 +225,21 @@ public final class ReflectionUtils {
     }
 
     /**
+     * check a class has a specified field
+     *
+     * @param classPath class's path
+     * @param fieldName field's name
+     * @return true -> yes, false -> no
+     * @see #hasField(Class, String)
+     */
+    public static boolean hasField(String classPath, String fieldName) throws ClassNotFoundException {
+        return hasField(Class.forName(classPath), fieldName);
+    }
+
+    /**
      * check a class has a specified constructor
      *
-     * @param clazz          classObj
+     * @param clazz          class's object
      * @param parameterTypes the constructor with the specified parameter types
      * @return true -> yes, false -> no
      */
@@ -204,7 +257,7 @@ public final class ReflectionUtils {
     /**
      * check a class has a specified constructor
      *
-     * @param clazz  classObj
+     * @param clazz  class's object
      * @param filter filter obj
      * @return true -> yes, false -> no
      */
@@ -223,9 +276,22 @@ public final class ReflectionUtils {
     }
 
     /**
+     * check a class has a specified constructor
+     *
+     * @param classPath      class's path
+     * @param parameterTypes the constructor with the specified parameter types
+     * @return true -> yes, false -> no
+     * @see #hasField(Class, String)
+     */
+    public static boolean hasConstructor(String classPath, Class<?>... parameterTypes) throws ClassNotFoundException {
+        return hasConstructor(Class.forName(classPath), parameterTypes);
+    }
+
+
+    /**
      * check a class has a specified method
      *
-     * @param clazz          classObj
+     * @param clazz          class's object
      * @param methodName     method's name
      * @param parameterTypes the method with the specified parameter types
      * @return true -> yes, false -> no
@@ -244,7 +310,7 @@ public final class ReflectionUtils {
     /**
      * check a class has a specified method
      *
-     * @param clazz  classObj
+     * @param clazz  class's object
      * @param filter filter obj
      * @return true -> yes, false -> no
      */
@@ -260,6 +326,19 @@ public final class ReflectionUtils {
             }
         }
         return has;
+    }
+
+    /**
+     * check a class has a specified method
+     *
+     * @param classPath      class's path
+     * @param methodName     method's name
+     * @param parameterTypes the method with the specified parameter types
+     * @return true -> yes, false -> no
+     * @see #hasMethod(Class, String, Class[])
+     */
+    public static boolean hasMethod(String classPath, String methodName, Class<?>... parameterTypes) throws ClassNotFoundException {
+        return hasMethod(Class.forName(classPath), methodName, parameterTypes);
     }
 
 }

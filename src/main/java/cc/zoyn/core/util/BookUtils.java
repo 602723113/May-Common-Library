@@ -2,7 +2,6 @@ package cc.zoyn.core.util;
 
 import cc.zoyn.core.dto.Book;
 import cc.zoyn.core.dto.Page;
-import cc.zoyn.core.util.ReflectionUtils.PackageType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,9 +9,18 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static cc.zoyn.core.util.nms.NMSUtils.*;
+import static cc.zoyn.core.util.reflect.ReflectionUtils.getFieldByFieldName;
+import static cc.zoyn.core.util.reflect.ReflectionUtils.getMethod;
 
 /**
  * 书本 - 工具类
+ * <br />
+ * Easy to open a book with the specified json
+ * <br />
+ * 简易的打开一个带有特定json的书
  *
  * @author Zoyn
  * @since 2017/?/?
@@ -25,10 +33,9 @@ public final class BookUtils {
 
     static {
         try {
-            getHandle = ReflectionUtils.getMethod("CraftPlayer", PackageType.CRAFTBUKKIT_ENTITY, "getHandle");
-            openBook = ReflectionUtils.getMethod("EntityPlayer", PackageType.MINECRAFT_SERVER, "a",
-                    PackageType.MINECRAFT_SERVER.getClass("ItemStack"),
-                    PackageType.MINECRAFT_SERVER.getClass("EnumHand"));
+            getHandle = getMethod(getOBCClass("CraftPlayer"), "getHandle");
+            openBook = getMethod(getNMSClass("EntityPlayer"), "a", getNMSClass("ItemStack"), getNMSClass("EnumHand"));
+
             initialised = true;
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
@@ -46,36 +53,16 @@ public final class BookUtils {
     }
 
     /**
-     * 打开一个虚拟的书
-     *
-     * @param player 玩家
-     * @param book   书
-     * @return 布尔值[true成功/false失败]
-     */
-    public static boolean openBook(Player player, Book book) {
-        if (!initialised)
-            return false;
-        ItemStack held = player.getInventory().getItemInMainHand();
-        ItemStack bookItem = book.getItem();
-        try {
-            player.getInventory().setItemInMainHand(bookItem);
-            sendPacket(bookItem, player);
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
-            initialised = false;
-        }
-        player.getInventory().setItemInMainHand(held);
-        return initialised;
-    }
-
-    /**
-     * 打开一个虚拟的书
+     * <p>
+     * 打开一个虚拟的书<br/>
+     * open a virtual book
+     * </p>
      *
      * @param item   书
      * @param player 玩家
      * @return 布尔值[true成功/false失败]
      */
-    public static boolean openBook(ItemStack item, Player player) {
+    public static boolean openBook(Player player, ItemStack item) {
         if (!initialised)
             return false;
         ItemStack held = player.getInventory().getItemInMainHand();
@@ -90,40 +77,35 @@ public final class BookUtils {
         return initialised;
     }
 
-    private static void sendPacket(ItemStack i, Player p) throws ReflectiveOperationException {
-        Object entityplayer = getHandle.invoke(p);
-        Class<?> enumHand = PackageType.MINECRAFT_SERVER.getClass("EnumHand");
-        Object[] enumArray = enumHand.getEnumConstants();
-        openBook.invoke(entityplayer, getItemStack(i), enumArray[0]);
-    }
-
-    public static Object getItemStack(ItemStack item) {
-        try {
-            Method asNMSCopy = ReflectionUtils.getMethod(PackageType.CRAFTBUKKIT_INVENTORY.getClass("CraftItemStack"),
-                    "asNMSCopy", ItemStack.class);
-            return asNMSCopy.invoke(PackageType.CRAFTBUKKIT_INVENTORY.getClass("CraftItemStack"), item);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    /**
+     * 打开一个虚拟的书
+     * <br />
+     * open a virtual book
+     *
+     * @param player player object
+     * @param book   a {@link Book} object
+     * @return true mean open success / false mean open fail
+     */
+    public static boolean openBook(Player player, Book book) {
+        return openBook(player, book.getItem());
     }
 
     /**
      * 以JSON格式来设置书的页面
+     * <br />
+     * use json to set book's page
      *
-     * @param metadata 书本的BookMeta
-     * @param pages    每页的json集合
+     * @param metadata book's meta
+     * @param pages    JSON lists
      */
     @SuppressWarnings("unchecked")
-    public static void setPagesAsJson(BookMeta metadata, List<String> pages) {
+    public static void setBookPagesAsJson(BookMeta metadata, List<String> pages) {
         List<Object> p;
         Object page;
         try {
-            p = (List<Object>) ReflectionUtils
-                    .getField(PackageType.CRAFTBUKKIT_INVENTORY.getClass("CraftMetaBook"), true, "pages").get(metadata);
+            p = (List<Object>) getFieldByFieldName(getOBCClass("CraftMetaBook"), "pages").get(metadata);
             for (String text : pages) {
-                page = ReflectionUtils.invokeMethod(ReflectionUtils.PackageType.MINECRAFT_SERVER
-                        .getClass("IChatBaseComponent$ChatSerializer").newInstance(), "a", text);
+                page = stringToIChatBaseComponent(text);
                 p.add(page);
             }
         } catch (Exception e) {
@@ -131,20 +113,28 @@ public final class BookUtils {
         }
     }
 
+    /**
+     * 用{@link Page}来设置书的页面
+     * <br />
+     * use {@link Page} to set book's page
+     *
+     * @param metadata book's meta
+     * @param pages    {@link Page} lists
+     */
     @SuppressWarnings("unchecked")
-    public static void setPagesAsPage(BookMeta meta, List<Page> pagess) {
-        List<Object> p;
-        Object page;
-        try {
-            p = (List<Object>) ReflectionUtils
-                    .getField(PackageType.CRAFTBUKKIT_INVENTORY.getClass("CraftMetaBook"), true, "pages").get(meta);
-            for (Page onePage : pagess) {
-                page = ReflectionUtils.invokeMethod(ReflectionUtils.PackageType.MINECRAFT_SERVER
-                        .getClass("IChatBaseComponent$ChatSerializer").newInstance(), "a", onePage.toJsonString());
-                p.add(page);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void setPagesAsPage(BookMeta metadata, List<Page> pages) {
+        setBookPagesAsJson(metadata, pages.stream()
+                .map(Page::toJsonString)
+                .collect(Collectors.toList()));
+    }
+
+    private static void sendPacket(ItemStack itemStack, Player p) throws ReflectiveOperationException {
+        Object entityplayer = getHandle.invoke(p);
+        Class<?> enumHand = getNMSClass("EnumHand");
+        Object[] enumArray = new Object[0];
+        if (enumHand != null) {
+            enumArray = enumHand.getEnumConstants();
         }
+        openBook.invoke(entityplayer, getNMSItem(itemStack), enumArray[0]);
     }
 }
