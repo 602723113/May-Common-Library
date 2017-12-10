@@ -111,9 +111,8 @@ public final class ItemStackUtils {
      * @return 该物品的ItemStack
      */
     public static ItemStack replaceLore(ItemStack is, String old, String newString) {
-        if (is == null) {
-            throw new NullPointerException();
-        }
+        Validate.notNull(is);
+
         ItemMeta im = is.getItemMeta();
         List<String> lore = im.getLore();
         if (!lore.contains(old)) {

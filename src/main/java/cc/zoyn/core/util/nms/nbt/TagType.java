@@ -12,6 +12,7 @@ import java.util.Map;
  */
 @Getter
 public enum TagType {
+
     INT("Int", TagInt.class, Integer.class),
     END("End", null, Void.class),
     BYTE("Byte", TagBase.class, Byte.class),
@@ -25,9 +26,9 @@ public enum TagType {
     INT_ARRAY("Int_Array", TagIntArray.class, int[].class),
     BYTE_ARRAY("Byte_Array", TagByteArray.class, byte[].class);
 
-    private String name;
-    private Class<? extends TagBase> tagClass;
-    private Class<?> valueClass;
+    private final String name;
+    private final Class<? extends TagBase> tagClass;
+    private final Class<?> valueClass;
 
     <V, T extends TagBase<? extends V>> TagType(String name, Class<T> tagClass, Class<V> valueClass) {
         this.name = name;

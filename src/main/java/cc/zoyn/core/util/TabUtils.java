@@ -31,20 +31,21 @@ public final class TabUtils {
     public static void setTab(@Nullable Player player, @Nullable String head, @Nullable String foot) {
         Validate.notNull(player);
 
-        if (head == null) {
-            head = "";
+        String translatedHead = "";
+        String translatedFoot = "";
+        if (head != null) {
+            translatedHead = ChatColor.translateAlternateColorCodes('&', head);
         }
-        String translatedHead = ChatColor.translateAlternateColorCodes('&', head);
-        if (foot == null) {
-            foot = "";
+        if (foot != null) {
+            translatedFoot = ChatColor.translateAlternateColorCodes('&', foot);
         }
-        String translatedFoot = ChatColor.translateAlternateColorCodes('&', foot);
+
+        // get ProtocolManager instance
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER);
         packet.getChatComponents()
                 .write(0, WrappedChatComponent.fromText(translatedHead))
-                .write(1, WrappedChatComponent.fromText(translatedFoot))
-        ;
+                .write(1, WrappedChatComponent.fromText(translatedFoot));
         try {
             protocolManager.sendServerPacket(player, packet);
         } catch (InvocationTargetException e) {
