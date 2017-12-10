@@ -1,6 +1,7 @@
-package cc.zoyn.core.util.nms.nbt;
+package cc.zoyn.core.util.nms.nbt.data;
 
-import cc.zoyn.core.util.nms.nbt.data.*;
+import cc.zoyn.core.util.nms.nbt.TagBase;
+import cc.zoyn.core.util.nms.nbt.TagType;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

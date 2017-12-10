@@ -13,8 +13,8 @@ public class NBTUtils {
 
     static {
         try {
-            setTag = NMSUtils.getNMSClass("ItemStack").getMethod("setTag", NMSUtils.getNMSClass("NbtTagCompound"));
-            set = NMSUtils.getNMSClass("NbtTagCompound").getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"));
+            setTag = NMSUtils.getNMSClass("ItemStack").getMethod("setTag", NMSUtils.getNMSClass("TagCompound"));
+            set = NMSUtils.getNMSClass("TagCompound").getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,7 +32,7 @@ public class NBTUtils {
 
     public static Object nbtTagString(String str) {
         try {
-            return NMSUtils.getNMSClass("NBTTagString").getConstructor(String.class).newInstance(str);
+            return NMSUtils.getNMSClass("TagString").getConstructor(String.class).newInstance(str);
         } catch (Exception e) {
             System.out.println("错误: " + e.getMessage());
         }
@@ -83,7 +83,7 @@ public class NBTUtils {
         try {
             return nmsItem.getClass().getMethod("getTag").invoke(nmsItem) != null
                     ? nmsItem.getClass().getMethod("getTag").invoke(nmsItem)
-                    : NMSUtils.getNMSClass("NbtTagCompound").newInstance();
+                    : NMSUtils.getNMSClass("TagCompound").newInstance();
         } catch (Exception e) {
             System.out.println("错误: " + e.getMessage());
         }
@@ -96,13 +96,13 @@ public class NBTUtils {
         try {
             //NPE检查
             if (set == null) {
-                set = NMSUtils.getNMSClass("NbtTagCompound").getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"));
+                set = NMSUtils.getNMSClass("TagCompound").getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"));
             }
             set.invoke(itemNbt, "Unbreakable", nbtTagByte((byte) (unbreak ? 1 : 0)));
 
             //NPE检查
             if (setTag == null) {
-                setTag = NMSUtils.getNMSClass("ItemStack").getMethod("setTag", NMSUtils.getNMSClass("NbtTagCompound"));
+                setTag = NMSUtils.getNMSClass("ItemStack").getMethod("setTag", NMSUtils.getNMSClass("TagCompound"));
             }
 
             setTag.invoke(nmsItem, itemNbt);
@@ -126,7 +126,7 @@ public class NBTUtils {
                 return nmsItem.getClass().getMethod("getTag").invoke(nmsItem);
             } else {
                 // 如果没有Tag数据则实例化个NBTTagCompound的实例
-                return NMSUtils.getNMSClass("NbtTagCompound").newInstance();
+                return NMSUtils.getNMSClass("TagCompound").newInstance();
             }
         } catch (Exception e) {
             System.out.println("错误: " + e.getMessage());
@@ -156,19 +156,19 @@ public class NBTUtils {
             // 物品的nbt对象
             Object itemNbt = nmsItem.getClass().getMethod("getTag").invoke(nmsItem) != null
                     ? nmsItem.getClass().getMethod("getTag").invoke(nmsItem)
-                    : NMSUtils.getNMSClass("NbtTagCompound").newInstance();
+                    : NMSUtils.getNMSClass("TagCompound").newInstance();
             // NbtTagList对象
             Object modifiers = NMSUtils.getNMSClass("NBTTagList").getConstructor().newInstance();
-            Object damageTag = NMSUtils.getNMSClass("NbtTagCompound").getConstructor().newInstance();
+            Object damageTag = NMSUtils.getNMSClass("TagCompound").getConstructor().newInstance();
             // 模块数据构造
-            Object attackDamage = NMSUtils.getNMSClass("NBTTagString").getConstructor(String.class)
+            Object attackDamage = NMSUtils.getNMSClass("TagString").getConstructor(String.class)
                     .newInstance("generic.attackDamage");
-            Object name = NMSUtils.getNMSClass("NBTTagString").getConstructor(String.class).newInstance("Damage");
+            Object name = NMSUtils.getNMSClass("TagString").getConstructor(String.class).newInstance("Damage");
             Object amount = NMSUtils.getNMSClass("NBTTagInt").getConstructor(Integer.TYPE).newInstance(damage);
             Object operation = NMSUtils.getNMSClass("NBTTagInt").getConstructor(Integer.TYPE).newInstance(0);
             Object uuidLeast = NMSUtils.getNMSClass("NBTTagInt").getConstructor(Integer.TYPE).newInstance(894654);
             Object uuidMost = NMSUtils.getNMSClass("NBTTagInt").getConstructor(Integer.TYPE).newInstance(2872);
-            Object slotTag = NMSUtils.getNMSClass("NBTTagString").getConstructor(String.class)
+            Object slotTag = NMSUtils.getNMSClass("TagString").getConstructor(String.class)
                     .newInstance(slot.toString());
             // 模块数据输入
             damageTag.getClass().getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"))
@@ -191,7 +191,7 @@ public class NBTUtils {
             itemNbt.getClass().getMethod("set", String.class, NMSUtils.getNMSClass("NBTBase"))
                     .invoke(itemNbt, "AttributeModifiers", modifiers);
             // 保存nbt数据
-            nmsItem.getClass().getMethod("setTag", NMSUtils.getNMSClass("NbtTagCompound")).invoke(nmsItem, itemNbt);
+            nmsItem.getClass().getMethod("setTag", NMSUtils.getNMSClass("TagCompound")).invoke(nmsItem, itemNbt);
             ItemStack bukItem = (ItemStack) is.getClass().getMethod("asBukkitCopy", NMSUtils.getNMSClass("ItemStack"))
                     .invoke(nmsItem, nmsItem);
             return bukItem;
