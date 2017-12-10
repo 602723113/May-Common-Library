@@ -1,6 +1,5 @@
 package cc.zoyn.core.builder;
 
-import cc.zoyn.core.util.nms.nbt.NBTUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -62,7 +61,7 @@ public class ItemStackBuilder {
     }
 
     public ItemStackBuilder setUnbreakable(boolean unBreakable) {
-        NBTUtils.setUnbreakable(currentItem, unBreakable);
+        currentItem.getItemMeta().spigot().setUnbreakable(unBreakable);
         return this;
     }
 

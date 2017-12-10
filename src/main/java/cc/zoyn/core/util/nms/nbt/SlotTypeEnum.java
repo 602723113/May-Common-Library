@@ -1,7 +1,7 @@
-package cc.zoyn.core.dto;
+package cc.zoyn.core.util.nms.nbt;
 
 /**
- * NBTSlot类型枚举
+ * NBTSlot
  *
  * @author Zoyn
  */

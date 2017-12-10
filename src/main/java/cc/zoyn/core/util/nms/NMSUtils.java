@@ -1,5 +1,6 @@
 package cc.zoyn.core.util.nms;
 
+import cc.zoyn.core.util.nms.nbt.AttributeType;
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
@@ -9,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import java.lang.reflect.Method;
 
 /**
- * Easily to use NMS
+ * Easy to use NMS
  *
  * @author Zoyn
  * @since 2017/4/26

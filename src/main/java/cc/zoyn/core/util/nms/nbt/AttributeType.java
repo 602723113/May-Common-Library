@@ -6,6 +6,7 @@ import lombok.Getter;
  * @author Zoyn
  * @since 2017-12-02
  */
+@Getter
 public enum AttributeType {
     ATTACK_DAMAGE("generic.attackDamage"),
     ATTACK_SPEED("generic.attackSpeed"),
@@ -14,14 +15,11 @@ public enum AttributeType {
     ARMOR("generic.armor"),
     LUCK("generic.luck");
 
-    @Getter
     private String name;
 
     AttributeType(String name) {
         this.name = name;
     }
-
-
 
 
 }
