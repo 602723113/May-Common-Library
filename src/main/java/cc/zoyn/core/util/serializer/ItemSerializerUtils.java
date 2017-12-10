@@ -46,11 +46,11 @@ public final class ItemSerializerUtils {
                         .forName("org.bukkit.craftbukkit." + NMSUtils.getVersion() + ".inventory.CraftItemStack")
                         .getMethod("asCraftCopy", ItemStack.class).invoke(items[i], items[i]);
                 // nbt
-                Object localNBTTagCompound = NMSUtils.getNMSClass("NbtTagCompound").getConstructor().newInstance();
+                Object localNBTTagCompound = NMSUtils.getNMSClass("NBTTagCompound").getConstructor().newInstance();
                 if (localCraftItemStack != null) {
                     try {
                         Object nmsItem = NMSUtils.getNMSItem(items[i]);
-                        nmsItem.getClass().getMethod("save", NMSUtils.getNMSClass("NbtTagCompound")).invoke(nmsItem,
+                        nmsItem.getClass().getMethod("save", NMSUtils.getNMSClass("NBTTagCompound")).invoke(nmsItem,
                                 localNBTTagCompound);
                     } catch (NullPointerException localNullPointerException) {
                         System.out.println("错误: " + localNullPointerException.getMessage());
@@ -106,7 +106,7 @@ public final class ItemSerializerUtils {
 					 */
                     if (subVersion >= 11) {
                         //构造器
-                        Constructor<?> constructor = NMSUtils.getNMSClass("ItemStack").getConstructor(NMSUtils.getNMSClass("NbtTagCompound"));
+                        Constructor<?> constructor = NMSUtils.getNMSClass("ItemStack").getConstructor(NMSUtils.getNMSClass("NBTTagCompound"));
                         Object nmsItem = constructor.newInstance(localNBTTagCompound);
                         arrayOfItemStack[i] = (ItemStack) NMSUtils.getOBCClass("inventory.CraftItemStack").getMethod("asCraftMirror", NMSUtils.getNMSClass("ItemStack")).invoke(nmsItem, nmsItem);
                     } else {
@@ -114,7 +114,7 @@ public final class ItemSerializerUtils {
                                 .forName("org.bukkit.craftbukkit." + NMSUtils.getVersion() + ".inventory.CraftItemStack")
                                 .getMethod("asCraftMirror", NMSUtils.getNMSClass("ItemStack"))
                                 .invoke(localNBTTagCompound, NMSUtils.getNMSClass("ItemStack")
-                                        .getMethod("createStack", NMSUtils.getNMSClass("NbtTagCompound"))
+                                        .getMethod("createStack", NMSUtils.getNMSClass("NBTTagCompound"))
                                         .invoke(localNBTTagCompound, localNBTTagCompound));
                     }
                 }
