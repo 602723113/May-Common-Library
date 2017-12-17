@@ -2,88 +2,89 @@ package cc.zoyn.core.util;
 
 import cc.zoyn.core.Core;
 import com.google.common.collect.Iterables;
-import org.bukkit.Bukkit;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
+import lombok.Getter;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 /**
  * BungeeCord - 工具类
  *
  * @author Zoyn
  */
-public final class BungeeCordUtils implements PluginMessageListener {
+public final class BungeeCordUtils {
+
+    private static volatile BungeeCordUtils instance;
 
     // Prevent accidental construction
     private BungeeCordUtils() {
     }
 
+    public static BungeeCordUtils getInstance() {
+        if (instance == null) {
+            synchronized (BungeeCordUtils.class) {
+                if (instance == null) {
+                    instance = new BungeeCordUtils();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void sendData(BungeeCordTagType tagType, String... arguments) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+
+        out.writeUTF(tagType.getText());
+        for (String argument : arguments) {
+            out.writeUTF(argument);
+        }
+
+        Player player = Iterables.getFirst(BasicUtils.getOnlinePlayers(), null);
+        Validate.notNull(player).sendPluginMessage(Core.getInstance(), "BungeeCord", out.toByteArray());
+    }
+
     /**
      * 将玩家传送至某子服
      *
-     * @param name       名字
+     * @param playerName 名字
      * @param serverName 服务器名
      */
-    public static void playerConnectServer(String name, String serverName) {
-        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-        DataOutputStream dataOut = new DataOutputStream(byteOut);
-        try {
-            dataOut.writeUTF("Connect");
-            dataOut.writeUTF(name);
-            dataOut.writeUTF(serverName);
-        } catch (IOException e) {
-            System.out.println("错误: " + e.getMessage());
-        }
-        if (Bukkit.getOnlinePlayers() != null) {
-            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
-            player.sendPluginMessage(Core.getInstance(), "BungeeCord", byteOut.toByteArray());
-        }
+    public static void playerConnectServer(String playerName, String serverName) {
+        sendData(BungeeCordTagType.CONNECT_OTHER, playerName, serverName);
     }
 
     /**
      * 踢出一个玩家
      *
-     * @param name    玩家名
-     * @param message 信息
+     * @param playerName 玩家名
+     * @param message    信息
      */
-    public static void kickPlayer(String name, String message) {
-        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-        DataOutputStream dataOut = new DataOutputStream(byteOut);
-        try {
-            dataOut.writeUTF("KickPlayer");
-            dataOut.writeUTF(name);
-            dataOut.writeUTF(message);
-        } catch (IOException e) {
-            System.out.println("错误: " + e.getMessage());
-        }
-        if (Bukkit.getOnlinePlayers() != null) {
-            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
-            player.sendPluginMessage(Core.getInstance(), "BungeeCord", byteOut.toByteArray());
-        }
+    public static void kickPlayer(String playerName, String message) {
+        sendData(BungeeCordTagType.KICK_PLAYER, playerName, message);
     }
 
-    public static void sendData(String tag, String message) {
-        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-        DataOutputStream dataOut = new DataOutputStream(byteOut);
-        try {
-            dataOut.writeUTF(tag);
-            dataOut.writeUTF(message);
-        } catch (IOException e) {
-            System.out.println("错误: " + e.getMessage());
-        }
-        if (Bukkit.getOnlinePlayers() != null) {
-            Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
-            player.sendPluginMessage(Core.getInstance(), "BukkitCoreMessage", byteOut.toByteArray());
-        }
+    public static void sendMessageToPlayer(String playerName, String message) {
+        sendData(BungeeCordTagType.MESSAGE, playerName, message);
     }
 
-    @Override
-    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (!"BukkitCoreMessage".equals(channel)) {
-            return;
+
+    @Getter
+    public enum BungeeCordTagType {
+        CONNECT("Connect"),
+        CONNECT_OTHER("ConnectOther"),
+        IP("IP"),
+        PLAYER_COUNT("PlayerCount"),
+        PLAYER_LIST("PlayerList"),
+        GET_SERVERS("GetServers"),
+        MESSAGE("Message"),
+        KICK_PLAYER("KickPlayer");
+
+        private String text;
+
+        BungeeCordTagType(String text) {
+            this.text = text;
         }
     }
 

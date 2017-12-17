@@ -1,5 +1,6 @@
 package cc.zoyn.core;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -13,6 +14,9 @@ public class Core extends JavaPlugin {
 
     public void onEnable() {
         instance = this;
+
+        // register channel
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
     /**

@@ -1,34 +1,31 @@
 package cc.zoyn.core.util;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockIterator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class EntityUtils {
 
     // Prevent accidental construction
-    private EntityUtils() {}
+    private EntityUtils() {
+    }
 
     /**
-     * get player target <br />
      * 取目标玩家
+     * <br />
+     * get player target
      *
      * @param player 玩家
      * @return 该玩家的目标玩家
-                */
-        public static Player getTargetPlayer(Player player) {
-            List<Entity> nearbyE = player.getNearbyEntities(20.0D, 20.0D, 20.0D);
-            ArrayList<Player> nearPlayers = new ArrayList<Player>();
-            for (Entity e : nearbyE) {
-                if ((e instanceof Player)) {
-                    nearPlayers.add((Player) e);
-                }
-            }
+     */
+    public static Player getTargetPlayer(Player player) {
+        List<Player> nearPlayers = getNearbyPlayersList(player.getLocation(), 20D);
+
         Player target = null;
         BlockIterator bItr = new BlockIterator(player, 20);
         while (bItr.hasNext()) {
@@ -72,17 +69,17 @@ public final class EntityUtils {
     public static List<Entity> getNearbyEntitiesList(Location loc, double radius) {
         int Radius = (int) radius;
         int chunkRadius = Radius < 16 ? 1 : (Radius - Radius % 16) / 16;
-        List<Entity> radiusEntities = new ArrayList<Entity>();
+        List<Entity> radiusEntities = Lists.newArrayList();
         for (int chX = 0 - chunkRadius; chX <= chunkRadius; ++chX) {
             for (int chZ = 0 - chunkRadius; chZ <= chunkRadius; ++chZ) {
                 int x = (int) loc.getX();
                 int y = (int) loc.getY();
                 int z = (int) loc.getZ();
-                Entity[] entitys;
-                int size = (entitys = (new Location(loc.getWorld(), (double) (x + chX * 16), (double) y,
+                Entity[] entities;
+                int size = (entities = (new Location(loc.getWorld(), (double) (x + chX * 16), (double) y,
                         (double) (z + chZ * 16))).getChunk().getEntities()).length;
                 for (int i = 0; i < size; i++) {
-                    Entity e = entitys[i];
+                    Entity e = entities[i];
                     if (e.getLocation().distance(loc) <= radius && e.getLocation().getBlock() != loc.getBlock()) {
                         radiusEntities.add(e);
                     }
@@ -100,29 +97,11 @@ public final class EntityUtils {
      * @return 玩家集合
      */
     public static List<Player> getNearbyPlayersList(Location loc, double radius) {
-        int Radius = (int) radius;
-        int chunkRadius = Radius < 16 ? 1 : (Radius - Radius % 16) / 16;
-        List<Entity> radiusEntities = new ArrayList<Entity>();
-        for (int chX = 0 - chunkRadius; chX <= chunkRadius; ++chX) {
-            for (int chZ = 0 - chunkRadius; chZ <= chunkRadius; ++chZ) {
-                int x = (int) loc.getX();
-                int y = (int) loc.getY();
-                int z = (int) loc.getZ();
-                Entity[] entitys;
-                int size = (entitys = (new Location(loc.getWorld(), (double) (x + chX * 16), (double) y,
-                        (double) (z + chZ * 16))).getChunk().getEntities()).length;
-                for (int i = 0; i < size; i++) {
-                    Entity e = entitys[i];
-                    if (e.getLocation().distance(loc) <= radius && e.getLocation().getBlock() != loc.getBlock()) {
-                        radiusEntities.add(e);
-                    }
-                }
-            }
-        }
-        List<Player> players = new ArrayList<Player>();
-        for (int i = 0; i < radiusEntities.size(); i++) {
-            if (radiusEntities.get(i) instanceof Player) {
-                players.add((Player) radiusEntities.get(i));
+        List<Entity> radiusEntities = getNearbyEntitiesList(loc, radius);
+        List<Player> players = Lists.newArrayList();
+        for (Entity radiusEntity : radiusEntities) {
+            if (radiusEntity instanceof Player) {
+                players.add((Player) radiusEntity);
             }
         }
         return players;

@@ -2,8 +2,6 @@ package cc.zoyn.core.util;
 
 /**
  * Json构建
- *
- * @author Zoyn
  */
 public final class JsonBuilderUtils {
 

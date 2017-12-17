@@ -1,13 +1,15 @@
 package cc.zoyn.core.util.nms;
 
-import cc.zoyn.core.util.nms.nbt.AttributeType;
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import static cc.zoyn.core.util.reflect.ReflectionUtils.*;
 
 /**
  * Easy to use NMS
@@ -18,6 +20,8 @@ import java.lang.reflect.Method;
 public final class NMSUtils {
 
     private static String version;
+    private static Field playerConnectionField;
+    private static Method sendPacketMethod;
     private static Method asNMSCopyMethod;
     private static Method stringAsIChatBaseComponentMethod;
     private static Method craftBukkitEntityPlayerGetHandleMethod;
@@ -27,26 +31,35 @@ public final class NMSUtils {
     }
 
     static {
-        //org.bukkit.craftbukkit.vX_XX_RX;
+        // org.bukkit.craftbukkit.vX_XX_RX;
         version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+
+        // initial
         try {
-            stringAsIChatBaseComponentMethod = ReflectionUtils.getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
-            craftBukkitEntityPlayerGetHandleMethod = ReflectionUtils.getMethod(getOBCClass("inventory.CraftItemStack"), "getHandle");
-        } catch (NoSuchMethodException e) {
+            playerConnectionField = getFieldByFieldName(getNMSClass("EntityPlayer"), "playerConnection");
+            sendPacketMethod = getMethod(getNMSClass("PlayerConnection"), "sendPacket", getNMSClass("Packet"));
+            asNMSCopyMethod = getMethod(getNMSClass("CraftItemStack"), "asNMSCopy", ItemStack.class);
+            stringAsIChatBaseComponentMethod = getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
+            craftBukkitEntityPlayerGetHandleMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "getHandle");
+        } catch (NoSuchMethodException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 取服务器版本 如v1_10_R1
+     * 取服务器版本 如 v1_10_R1
+     * <br />
+     * get the server version, returns a string similar to v1_10_R1
      *
-     * @return 服务器版本
+     * @return server version
      */
     public static String getVersion() {
         return version;
     }
 
     /**
+     * 取 org.bukkit.craftbukkit 包下的类对象
+     * <br />
      * get org.bukkit.craftbukkit's class object
      *
      * @param className a class's name in the package obc
@@ -62,7 +75,7 @@ public final class NMSUtils {
     }
 
     /**
-     * 取物品的NMS对象
+     * 取物品的 NMS 对象
      * <br />
      * get a item's nms object
      *
@@ -76,7 +89,7 @@ public final class NMSUtils {
 
             try {
                 //CraftItemStack
-                asNMSCopyMethod = ReflectionUtils.getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
+                asNMSCopyMethod = getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -91,7 +104,7 @@ public final class NMSUtils {
     }
 
     /**
-     * 取对应的NMS下的类
+     * 取对应的 NMS 下的类
      * <br />
      * get net.minecraft.server's class object
      *
@@ -108,52 +121,83 @@ public final class NMSUtils {
     }
 
     /**
-     * 给一名玩家发送NMS数据包
+     * 给一名玩家发送 NMS 数据包
+     * <br />
+     * send a NMS packet to a player
      *
      * @param player player object
      * @param packet packet object
+     * @see #getNMSPlayer(Player)
+     * @see ReflectionUtils#invokeMethod(Method, Object, Object...)
      */
     public static void sendPacket(Player player, Object packet) {
         Object entityPlayer = getNMSPlayer(player);
+
+        if (playerConnectionField == null) {
+            try {
+                playerConnectionField = getFieldByFieldName(getNMSClass("EntityPlayer"), "playerConnection");
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (sendPacketMethod == null) {
+            try {
+                sendPacketMethod = getMethod(getNMSClass("PlayerConnection"), "sendPacket", getNMSClass("Packet"));
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             // get playerConnection instance
-            Object playerConnection = entityPlayer.getClass().getField("playerConnection").get(entityPlayer);
-            // invoke sendPacket
-            playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
+            Object playerConnection = playerConnectionField.get(entityPlayer);
+            // invoke method sendPacket()
+            invokeMethod(sendPacketMethod, playerConnection, packet);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 取玩家NMS对象也就是EntityPlayer类的实例
+     * 取玩家的 NMS 对象
      * <br />
      * get a player's nms object
      *
      * @param player player object
      * @return {@link Object}
+     * @see ReflectionUtils#invokeMethod(Method, Object, Object...)
      */
     public static Object getNMSPlayer(Player player) {
         try {
-            return ReflectionUtils.invokeMethod(craftBukkitEntityPlayerGetHandleMethod, player);
+            return invokeMethod(craftBukkitEntityPlayerGetHandleMethod, player);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return player;
     }
 
-    public static Object stringToIChatBaseComponent(String string) {
+    /**
+     * 将一行文本转换为 IChatBaseComponent 对象
+     * <br/>
+     * Convert a text to IChatBaseComponent
+     *
+     * @param text String object
+     * @return {@link Object}
+     * @see ReflectionUtils#getMethod(Class, String, Class[])
+     */
+    public static Object stringToIChatBaseComponent(String text) {
         if (stringAsIChatBaseComponentMethod == null) {
             try {
                 // IChatBaseComponent$ChatSerializer
-                stringAsIChatBaseComponentMethod = ReflectionUtils.getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
+                stringAsIChatBaseComponentMethod = getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+
         try {
-            return stringAsIChatBaseComponentMethod.invoke(Validate.notNull(string));
+            return invokeMethod(stringAsIChatBaseComponentMethod, Validate.notNull(text));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
