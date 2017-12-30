@@ -1,8 +1,8 @@
 package cc.zoyn.core.dto;
 
 import cc.zoyn.core.modules.tellraw.JsonImpl;
+import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Page {
 
-    private List<JsonImpl> jsonParts = new ArrayList<JsonImpl>();
+    private List<JsonImpl> jsonParts = Lists.newArrayList();
 
     /**
      * 构造方法
@@ -53,7 +53,7 @@ public class Page {
      * @return {@link Page}
      */
     public Page excuteCommand(String command) {
-        return onClick("run_command", command);
+        return onClick(command);
     }
 
     /**
@@ -80,7 +80,7 @@ public class Page {
      * @return {@link Page}
      */
     public Page addHover(String text) {
-        return onHover("show_text", text);
+        return onHover(text);
     }
 
     /**
@@ -131,13 +131,12 @@ public class Page {
     /**
      * 添加显示操作
      *
-     * @param name 悬浮显示
      * @param data 显示内容
      * @return {@link Page}
      */
-    private Page onHover(String name, String data) {
+    private Page onHover(String data) {
         JsonImpl latest = latest();
-        latest.hoverActionName = name;
+        latest.hoverActionName = "show_text";
         latest.hoverActionData = data;
         return this;
     }
@@ -145,13 +144,12 @@ public class Page {
     /**
      * 添加点击操作
      *
-     * @param name 点击名称
      * @param data 点击操作
      * @return {@link Page}
      */
-    private Page onClick(String name, String data) {
+    private Page onClick(String data) {
         JsonImpl latest = latest();
-        latest.clickActionName = name;
+        latest.clickActionName = "run_command";
         latest.clickActionData = data;
         return this;
     }

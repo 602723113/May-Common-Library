@@ -43,9 +43,8 @@ public final class BasicUtils {
 //    }
 
     /**
-     * 取服务器在线玩家
-     *
-     * @return 玩家集合
+     * get server all online players
+     * @return
      */
     public static List<Player> getOnlinePlayers() {
         // 实例化两个List用于存放Player和World
@@ -64,14 +63,19 @@ public final class BasicUtils {
     }
 
     /**
-     * 将名字转换为UUID
+     * 将玩家名转换为UUID
+     * <br />
+     * convert player name to UUID
      *
-     * @param name 名字
-     * @return 该名的UUID对象
+     * @param name the player name
+     * @return the name of the corresponding uuid
      */
     public UUID translateNameToUUID(String name) {
-        UUID uuid = null;
-        uuid = Bukkit.getPlayer(name).getUniqueId();
-        return uuid;
+        final Player player = Bukkit.getPlayerExact(name);
+        if (player != null) {
+            return player.getUniqueId();
+        } else {
+            return UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes());
+        }
     }
 }
