@@ -2,6 +2,7 @@ package cc.zoyn.core;
 
 import cc.zoyn.core.modules.serverping.ServerPing;
 import cc.zoyn.core.modules.serverping.ServerPingReply;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -12,12 +13,10 @@ public class ServerPingTest {
 
     @Test
     public void testServerPing() {
-        ServerPing serverPing = new ServerPing("play.i5mc.com");
+        ServerPing serverPing = new ServerPing("mc.hypixel.net");
         serverPing.pingServer();
         ServerPingReply reply = serverPing.getReply();
-//        System.out.println("Motd: " + reply.getMotd().getText());
-//        System.out.println("===========");
-//        System.out.println(reply.getOriginalJson());
+        Assert.assertEquals(47, reply.getVersion().getProtocol());
     }
 
 }

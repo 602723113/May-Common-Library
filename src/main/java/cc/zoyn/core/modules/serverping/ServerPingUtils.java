@@ -1,9 +1,5 @@
 package cc.zoyn.core.modules.serverping;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -101,20 +97,6 @@ public final class ServerPingUtils {
 
     public static ScriptEngine getEngine() {
         return engine;
-    }
-
-    public static String parseMotd(String json) {
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(json);
-        if (element.getAsJsonObject().has("description")) {
-            JsonElement description = element.getAsJsonObject().get("description");
-            if (description.getAsJsonObject().has("extra")) {
-                JsonObject extra = description.getAsJsonObject().get("extra").getAsJsonObject();
-                System.out.println(extra);
-                System.out.println("*******************");
-            }
-        }
-        return "a";
     }
 
     /**

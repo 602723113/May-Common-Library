@@ -1,9 +1,6 @@
 package cc.zoyn.core.modules.serverping;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 /**
  * @author Zoyn
@@ -20,6 +17,7 @@ public class ServerPingReply {
     private Favicon favicon;
     private String originalJson;
 
+    @ToString
     @AllArgsConstructor
     public static class Version {
         @Getter
@@ -28,6 +26,7 @@ public class ServerPingReply {
         private int protocol;
     }
 
+    @ToString
     @AllArgsConstructor
     public static class Players {
         @Getter
@@ -36,12 +35,14 @@ public class ServerPingReply {
         private int onlinePlayer;
     }
 
+    @ToString
     @AllArgsConstructor
     public static class Motd {
         @Getter
         private String text;
     }
 
+    @ToString
     @AllArgsConstructor
     public static class Favicon {
         @Getter

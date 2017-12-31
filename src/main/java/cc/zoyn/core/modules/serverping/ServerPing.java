@@ -70,8 +70,6 @@ public class ServerPing {
             in.readFully(data);
             String json = new String(data, this.chatSet);
 
-            ServerPingUtils.parseMotd(json);
-
             // format data
             ScriptObjectMirror mirror = (ScriptObjectMirror) ((Invocable) ServerPingUtils.getEngine()).invokeFunction("parse", json);
             if (mirror == null) {

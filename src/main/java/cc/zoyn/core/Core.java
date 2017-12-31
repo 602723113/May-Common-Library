@@ -12,6 +12,7 @@ public class Core extends JavaPlugin {
 
     private static Core instance;
 
+    @Override
     public void onEnable() {
         instance = this;
 
