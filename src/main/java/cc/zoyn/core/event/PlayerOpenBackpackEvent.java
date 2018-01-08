@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerEvent;
 public class PlayerOpenBackpackEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
+    private boolean cancelled = false;
 
     public PlayerOpenBackpackEvent(Player who) {
         super(who);
