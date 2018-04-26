@@ -38,9 +38,9 @@ public final class NMSUtils {
         try {
             playerConnectionField = getFieldByFieldName(getNMSClass("EntityPlayer"), "playerConnection");
             sendPacketMethod = getMethod(getNMSClass("PlayerConnection"), "sendPacket", getNMSClass("Packet"));
-            asNMSCopyMethod = getMethod(getNMSClass("CraftItemStack"), "asNMSCopy", ItemStack.class);
+            asNMSCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
             stringAsIChatBaseComponentMethod = getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
-            craftBukkitEntityPlayerGetHandleMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "getHandle");
+            craftBukkitEntityPlayerGetHandleMethod = getMethod(getOBCClass("entity.CraftPlayer"), "getHandle");
         } catch (NoSuchMethodException | NoSuchFieldException e) {
             e.printStackTrace();
         }
@@ -89,6 +89,7 @@ public final class NMSUtils {
 
             try {
                 //CraftItemStack
+
                 asNMSCopyMethod = getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
             } catch (Exception e) {
                 e.printStackTrace();
