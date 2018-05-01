@@ -70,13 +70,13 @@ public final class MathUtils {
     /**
      * 取第一个坐标到第二个坐标的向量
      *
-     * @param first_location  坐标1
-     * @param second_location 坐标2
+     * @param firstLocation  坐标1
+     * @param secondLocation 坐标2
      * @return {@link Vector}
      */
-    public static Vector getVector(Location first_location, Location second_location) {
-        Vector from = new Vector(first_location.getX(), first_location.getY(), first_location.getZ());
-        Vector to = new Vector(second_location.getX(), second_location.getY(), second_location.getZ());
+    public static Vector getVector(Location firstLocation, Location secondLocation) {
+        Vector from = new Vector(firstLocation.getX(), firstLocation.getY(), firstLocation.getZ());
+        Vector to = new Vector(secondLocation.getX(), secondLocation.getY(), secondLocation.getZ());
         return to.subtract(from);
     }
 }

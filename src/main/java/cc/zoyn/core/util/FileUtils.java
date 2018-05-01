@@ -39,7 +39,10 @@ public final class FileUtils {
         }
         if (file.isDirectory()) {
             File[] list = file.listFiles();
-
+            // prevent forEach null
+            if (list == null) {
+                return;
+            }
             for (File f : list) {
                 deleteFile(f.getAbsolutePath());
             }
@@ -114,9 +117,14 @@ public final class FileUtils {
             e.printStackTrace();
         } finally {
             try {
-                bo.close();
+                if (bo != null) {
+                    bo.close();
+                }
             } finally {
-                out.close(); // 输出流关闭
+                if (out != null) {
+                    // 输出流关闭
+                    out.close();
+                }
             }
         }
         return outFile;
@@ -140,36 +148,37 @@ public final class FileUtils {
             e.printStackTrace();
         } finally {
             try {
-                bo.close();
+                if (bo != null) {
+                    bo.close();
+                }
             } finally {
-                out.close(); // 输出流关闭
+                if (out != null) {
+                    out.close(); // 输出流关闭
+                }
             }
         }
         return outFile;
     }
 
-    private static void zip(ZipOutputStream out, File f, String base, BufferedOutputStream bo) throws Exception { // 方法重载
-        if (f.isDirectory()) {
-            File[] fl = f.listFiles();
-            if (fl == null || fl.length == 0) {
+    private static void zip(ZipOutputStream out, File file, String base, BufferedOutputStream bo) throws Exception { // 方法重载
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files == null || files.length == 0) {
                 out.putNextEntry(new ZipEntry(base + "/")); // 创建创建一个空的文件夹
             } else {
-                for (int i = 0; i < fl.length; i++) {
-                    zip(out, fl[i], base + "/" + fl[i].getName(), bo); // 递归遍历子文件夹
+                for (File fileTemp : files) {
+                    zip(out, fileTemp, base + "/" + fileTemp.getName(), bo); // 递归遍历子文件夹
                 }
             }
 
         } else {
             out.putNextEntry(new ZipEntry(base)); // 创建zip压缩进入 base 文件
             System.out.println(base);
-            BufferedInputStream bi = new BufferedInputStream(new FileInputStream(f));
 
-            try {
-                write2Out(bi, out);
+            try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                write2Out(in, out);
             } catch (IOException e) {
                 // Ignore
-            } finally {
-                bi.close();// 输入流关闭
             }
         }
     }

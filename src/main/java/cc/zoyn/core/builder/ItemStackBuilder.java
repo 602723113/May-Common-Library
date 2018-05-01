@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemStackBuilder {
@@ -46,7 +47,7 @@ public class ItemStackBuilder {
     }
 
     public ItemStackBuilder clearLore() {
-        currentMeta.setLore(Arrays.asList());
+        currentMeta.setLore(Collections.emptyList());
         return this;
     }
 

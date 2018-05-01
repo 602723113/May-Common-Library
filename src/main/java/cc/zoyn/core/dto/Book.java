@@ -4,6 +4,7 @@ import cc.zoyn.core.util.BookUtils;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -16,10 +17,11 @@ import java.util.List;
  * @author Zoyn
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Book {
 
-    private String author = "notch";
+    private String author = "Zoyn";
     private String title = "HelloWorld";
     private List<Page> pages = Lists.newArrayList();
 
