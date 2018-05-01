@@ -1,6 +1,5 @@
-package cc.zoyn.core.model;
+package cc.zoyn.core.modules.book;
 
-import cc.zoyn.core.util.BookUtils;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;

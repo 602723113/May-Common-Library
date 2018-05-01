@@ -1,4 +1,4 @@
-package cc.zoyn.core.model;
+package cc.zoyn.core.modules.book;
 
 import cc.zoyn.core.modules.tellraw.JsonImpl;
 import com.google.common.collect.Lists;
