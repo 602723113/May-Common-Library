@@ -1,7 +1,7 @@
 package cc.zoyn.core.util;
 
-import cc.zoyn.core.dto.Book;
-import cc.zoyn.core.dto.Page;
+import cc.zoyn.core.model.Book;
+import cc.zoyn.core.model.Page;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,4 +1,4 @@
-package cc.zoyn.core.dto;
+package cc.zoyn.core.model;
 
 import cc.zoyn.core.util.BookUtils;
 import com.google.common.collect.Lists;
