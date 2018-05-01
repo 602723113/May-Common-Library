@@ -17,57 +17,78 @@ public class TagCompound extends TagBase<Map<String, TagBase>> {
 
     private Map<String, TagBase> map = Maps.newLinkedHashMap();
     private static final Gson PRETTY_PRINTING_GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson NORMAL_GSON = new GsonBuilder().create();
 
     public Map<String, TagBase> getValue() {
         return map;
     }
 
-    public void put(String key, TagBase base) {
+    public TagCompound put(String key, TagBase base) {
         map.put(key, base);
+        return this;
     }
 
-    public void putInt(String key, int value) {
+    public TagCompound putInt(String key, int value) {
         put(key, new TagInt(value));
+        return this;
     }
 
-    public void putByte(String key, byte value) {
+    public TagCompound putByte(String key, byte value) {
         put(key, new TagByte(value));
+        return this;
     }
 
-    public void putLong(String key, long value) {
+    public TagCompound putLong(String key, long value) {
         put(key, new TagLong(value));
+        return this;
     }
 
-    public void putShort(String key, short value) {
+    public TagCompound putShort(String key, short value) {
         put(key, new TagShort(value));
+        return this;
     }
 
-    public void putFloat(String key, float value) {
+    public TagCompound putFloat(String key, float value) {
         put(key, new TagFloat(value));
+        return this;
     }
 
-    public void putDouble(String key, double value) {
+    public TagCompound putDouble(String key, double value) {
         put(key, new TagDouble(value));
+        return this;
     }
 
-    public void putString(String key, String value) {
+    public TagCompound putString(String key, String value) {
         put(key, new TagString(value));
+        return this;
     }
 
-    public void putBoolean(String key, boolean value) {
+    public TagCompound putBoolean(String key, boolean value) {
         putByte(key, (byte) (value ? 1 : 0));
+        return this;
     }
 
-    public void putCompound(String key, TagCompound tag) {
+    public TagCompound putCompound(String key, TagCompound tag) {
         put(key, tag);
+        return this;
     }
 
-    public void putCompoundList(String key, List<TagCompound> list) {
+    public TagCompound putCompoundList(String key, List<TagCompound> list) {
         put(key, new TagList<>(TagType.COMPOUND, list));
+        return this;
     }
 
     @Override
     public String toString() {
-        return PRETTY_PRINTING_GSON.toJson(map);
+        Map<String, String> toStringMap = Maps.newHashMap();
+        map.forEach((s, tagBase) -> {
+            if (tagBase instanceof TagCompound) {
+                TagCompound compound = (TagCompound) tagBase;
+                toStringMap.put(s, NORMAL_GSON.toJson(compound.getValue()));
+                return;
+            }
+            toStringMap.put(s, tagBase.getValue().toString());
+        });
+        return PRETTY_PRINTING_GSON.toJson(toStringMap);
     }
 }

@@ -18,4 +18,23 @@ public class TagList<T extends TagBase> extends TagBase<List<T>> {
     private TagType tagType;
     private List<T> value;
 
+    public TagList<T> addValue(T t) {
+        value.add(t);
+        return this;
+    }
+
+    public TagList<T> removeValue(T t) {
+        value.remove(t);
+        return this;
+    }
+
+    public TagList<T> hasValue(T t) {
+        value.contains(t);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

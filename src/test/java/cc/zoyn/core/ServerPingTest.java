@@ -16,7 +16,7 @@ public class ServerPingTest {
         ServerPing serverPing = new ServerPing("mc.hypixel.net");
         serverPing.pingServer();
         ServerPingReply reply = serverPing.getReply();
-        Assert.assertEquals(47, reply.getVersion().getProtocol());
+        Assert.assertEquals("Requires MC 1.8/1.9/1.10/1.11/1.12", reply.getVersion().getName());
     }
 
 }
