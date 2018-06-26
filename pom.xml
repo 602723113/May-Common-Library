@@ -7,7 +7,14 @@
     <groupId>cc.zoyn.core</groupId>
     <artifactId>May-Common-Library</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>tellraw</module>
+        <module>serverping</module>
+        <module>common</module>
+        <module>plugin-release</module>
+    </modules>
 
     <name>May-Common-Library</name>
     <developers>
@@ -23,27 +30,13 @@
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>elmakers-repo</id>
-            <url>http://maven.elmakers.com/repository</url>
-        </repository>
-        <repository>
-            <id>dmulloy2-repo</id>
-            <url>http://repo.dmulloy2.net/content/groups/public/</url>
+            <id>lss233-minecraft</id>
+            <name>Lss233's Minecraft Repository</name>
+            <url>https://lss233.com/artifactory/minecraft</url>
         </repository>
     </repositories>
 
     <dependencies>
-        <!--spigot-->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.12.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
@@ -59,14 +52,8 @@
         <!--ProtocolLib-->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.3.0</version>
-        </dependency>
-        <!--commons-lang3-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <artifactId>ProtocolLib-API</artifactId>
+            <version>4.3.0-SNAPSHOT</version>
         </dependency>
         <!--junit-->
         <dependency>
@@ -75,54 +62,18 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <!--HikariCP-->
-        <!--<dependency>-->
-        <!--<groupId>com.zaxxer</groupId>-->
-        <!--<artifactId>HikariCP</artifactId>-->
-        <!--<version>2.7.2</version>-->
-        <!--<scope>compile</scope>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
-        <defaultGoal>clean install</defaultGoal>
-        <finalName>${project.name}-${project.version}</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>cglib</exclude>
-                                    <exclude>org.spigotmc</exclude>
-                                    <exclude>com.comphenix.protocol</exclude>
-                                    <exclude>com.comphenix.executors</exclude>
-                                </excludes>
-                            </artifactSet>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
