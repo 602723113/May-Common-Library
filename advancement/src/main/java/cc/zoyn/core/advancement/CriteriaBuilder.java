@@ -1,4 +1,4 @@
-package cc.zoyn.core.modules.advancement;
+package cc.zoyn.core.advancement;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;

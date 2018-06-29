@@ -12,4 +12,17 @@ public final class NBTUtils {
     private NBTUtils() {
     }
 
+//    public static TagBase parse(String mojangson) {
+//        try {
+//            NBTTagCompound compound = MojangsonParser.parse(mojangson);
+//            compound.g()
+//        } catch (MojangsonParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    public static TagByte parseByte(String mojangson) {
+//        new TagByte(mojangson);
+//    }
+
 }

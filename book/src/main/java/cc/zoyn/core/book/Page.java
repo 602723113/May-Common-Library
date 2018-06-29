@@ -1,4 +1,4 @@
-package cc.zoyn.core.modules.book;
+package cc.zoyn.core.book;
 
 import com.google.common.collect.Lists;
 

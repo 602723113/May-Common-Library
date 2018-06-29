@@ -4,4 +4,4 @@
  * @author Zoyn
  * @since 2017-12-09
  */
-package cc.zoyn.core.modules.advancement;
+package cc.zoyn.core.advancement;

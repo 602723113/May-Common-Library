@@ -1,4 +1,4 @@
-package cc.zoyn.core.modules.advancement;
+package cc.zoyn.core.advancement;
 
 /**
  * 触发器枚举

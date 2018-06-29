@@ -8,6 +8,7 @@ import lombok.Getter;
  */
 @Getter
 public enum AttributeType {
+
     ATTACK_DAMAGE("generic.attackDamage"),
     ATTACK_SPEED("generic.attackSpeed"),
     MAX_HEALTH("generic.maxHealth"),

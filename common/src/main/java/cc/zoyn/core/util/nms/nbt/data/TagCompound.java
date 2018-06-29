@@ -5,6 +5,7 @@ import cc.zoyn.core.util.nms.nbt.TagType;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @author Zoyn
  * @since 2017-12-02
  */
+@NoArgsConstructor
 public class TagCompound extends TagBase<Map<String, TagBase>> {
 
     private Map<String, TagBase> map = Maps.newLinkedHashMap();

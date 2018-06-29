@@ -1,4 +1,4 @@
-package cc.zoyn.core.modules.enchantments;
+package cc.zoyn.core.util;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -7,16 +7,21 @@ import org.bukkit.inventory.ItemStack;
 import java.lang.reflect.Field;
 
 /**
- * 用于给予物品发光属性,无实际作用的一个附魔
+ * 用于给予物品发光的特性
  *
  * @author Zoyn
  */
-public class Glow extends Enchantment {
+public class ItemGlowUtils extends Enchantment {
+
+    static {
+        registerGlow();
+    }
 
     /**
      * 注册附魔
      */
     public static void registerGlow() {
+
         try {
             Field f = Enchantment.class.getDeclaredField("acceptingNew");
             f.setAccessible(true);
@@ -26,7 +31,8 @@ public class Glow extends Enchantment {
         }
     }
 
-    public Glow(int id) {
+
+    public ItemGlowUtils(int id) {
         super(id);
     }
 

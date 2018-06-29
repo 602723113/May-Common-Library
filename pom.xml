@@ -14,6 +14,8 @@
         <module>serverping</module>
         <module>common</module>
         <module>plugin-release</module>
+        <module>book</module>
+        <module>advancement</module>
     </modules>
 
     <name>May-Common-Library</name>

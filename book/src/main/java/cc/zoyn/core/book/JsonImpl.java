@@ -1,4 +1,4 @@
-package cc.zoyn.core.modules.book;
+package cc.zoyn.core.book;
 
 import cc.zoyn.core.util.JsonBuilderUtils;
 
