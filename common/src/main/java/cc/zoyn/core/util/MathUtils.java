@@ -75,8 +75,6 @@ public final class MathUtils {
      * @return {@link Vector}
      */
     public static Vector getVector(Location firstLocation, Location secondLocation) {
-        Vector from = new Vector(firstLocation.getX(), firstLocation.getY(), firstLocation.getZ());
-        Vector to = new Vector(secondLocation.getX(), secondLocation.getY(), secondLocation.getZ());
-        return to.subtract(from);
+        return secondLocation.subtract(firstLocation).toVector();
     }
 }
