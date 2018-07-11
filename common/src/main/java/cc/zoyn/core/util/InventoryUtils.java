@@ -1,9 +1,12 @@
 package cc.zoyn.core.util;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 /**
  * 物品栏工具类
@@ -15,6 +18,22 @@ public final class InventoryUtils {
 
     // Prevent accidental construction
     private InventoryUtils() {
+    }
+
+    /**
+     * 检查一个容器是否为空
+     *
+     * @param inventory 给定的容器
+     * @return 当容器为空时返回true
+     */
+    public static boolean isEmpty(Inventory inventory) {
+        List<ItemStack> itemStacks = Lists.newArrayList(inventory.getContents());
+        for (ItemStack itemStack : itemStacks) {
+            if (itemStack == null || itemStack.getType().equals(Material.AIR)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -34,7 +53,6 @@ public final class InventoryUtils {
         }
         return false;
     }
-
 
     /**
      * 安全的给予物品
