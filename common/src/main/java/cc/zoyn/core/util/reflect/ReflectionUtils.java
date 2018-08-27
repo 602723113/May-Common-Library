@@ -105,7 +105,7 @@ public final class ReflectionUtils {
     public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... parameterTypes) throws NoSuchMethodException {
         Constructor constructor = null;
         if (hasConstructor(clazz, parameterTypes)) {
-            constructor = clazz.getConstructor(parameterTypes);
+            constructor = clazz.getDeclaredConstructor(parameterTypes);
         }
         return constructor;
     }
@@ -171,17 +171,48 @@ public final class ReflectionUtils {
     }
 
     /**
-     * method of invocation of object
+     * Invoke a method
      *
-     * @param method    method's object
-     * @param object    objects that need invoke
-     * @param arguments the method's arguments
+     * @param method    the method object
+     * @param object    the object will be invoke
+     * @param arguments the method arguments
      * @return {@link Object}
      * @throws InvocationTargetException If the desired method cannot be invoked
      * @throws IllegalAccessException    If the desired method cannot be accessed due to certain circumstances
      */
     public static Object invokeMethod(Method method, Object object, Object... arguments) throws InvocationTargetException, IllegalAccessException {
-        return Validate.notNull(method).invoke(object, arguments);
+        Validate.notNull(method);
+        Object o;
+
+        if (method.isAccessible()) {
+            o = method.invoke(object, arguments);
+        } else {
+            method.setAccessible(true);
+            o = method.invoke(object, arguments);
+            method.setAccessible(false);
+        }
+        return o;
+    }
+
+    /**
+     * Invoke a method
+     *
+     * @param methodName the method name
+     * @param object     the object will be invoke
+     * @param arguments  the method arguments
+     * @return {@link Object}
+     * @throws InvocationTargetException If the desired method cannot be invoked
+     * @throws IllegalAccessException    If the desired method cannot be accessed due to certain circumstances
+     */
+    public static Object invokeMethod(String methodName, Object object, Object... arguments) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method method;
+        Class[] classes = new Class[0];
+        for (int i = 0; i < arguments.length; i++) {
+            classes[i] = arguments[i].getClass();
+        }
+
+        method = getMethod(object.getClass(), methodName, classes);
+        return invokeMethod(method, object, arguments);
     }
 
     /**
@@ -195,7 +226,7 @@ public final class ReflectionUtils {
         boolean has;
 
         try {
-            Validate.notNull(clazz).getField(fieldName);
+            Validate.notNull(clazz).getDeclaredField(fieldName);
             has = true;
         } catch (NoSuchFieldException e) {
             has = false;
@@ -214,7 +245,7 @@ public final class ReflectionUtils {
         Validate.notNull(filter);
 
         boolean has = false;
-        Field[] fields = clazz.getFields();
+        Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             if (filter.accept(field)) {
                 has = true;
@@ -246,7 +277,7 @@ public final class ReflectionUtils {
     public static boolean hasConstructor(Class<?> clazz, Class<?>... parameterTypes) {
         boolean has;
         try {
-            Validate.notNull(clazz).getConstructor(parameterTypes);
+            Validate.notNull(clazz).getDeclaredConstructor(parameterTypes);
             has = true;
         } catch (NoSuchMethodException e) {
             has = false;
@@ -265,7 +296,7 @@ public final class ReflectionUtils {
         Validate.notNull(filter);
 
         boolean has = false;
-        Constructor[] constructors = clazz.getConstructors();
+        Constructor[] constructors = clazz.getDeclaredConstructors();
         for (Constructor constructor : constructors) {
             if (filter.accept(constructor)) {
                 has = true;
@@ -299,7 +330,7 @@ public final class ReflectionUtils {
     public static boolean hasMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
         boolean has;
         try {
-            Validate.notNull(clazz).getMethod(methodName, parameterTypes);
+            Validate.notNull(clazz).getDeclaredMethod(methodName, parameterTypes);
             has = true;
         } catch (NoSuchMethodException e) {
             has = false;
@@ -318,7 +349,7 @@ public final class ReflectionUtils {
         Validate.notNull(filter);
 
         boolean has = false;
-        Method[] methods = clazz.getMethods();
+        Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
             if (filter.accept(method)) {
                 has = true;
