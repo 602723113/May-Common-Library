@@ -35,11 +35,11 @@
             <id>elmakers-repo</id>
             <url>http://maven.elmakers.com/repository</url>
         </repository>
-        <!--<repository>-->
-        <!--<id>lss233-minecraft</id>-->
-        <!--<name>Lss233's Minecraft Repository</name>-->
-        <!--<url>https://lss233.com/artifactory/minecraft</url>-->
-        <!--</repository>-->
+        <repository>
+            <id>lss233-minecraft</id>
+            <name>Lss233's Minecraft Repository</name>
+            <url>https://lss233.com/artifactory/minecraft</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -58,8 +58,8 @@
         <!--ProtocolLib-->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>3.5.0-SNAPSHOT</version>
+            <artifactId>ProtocolLib-API</artifactId>
+            <version>4.3.0-SNAPSHOT</version>
         </dependency>
         <!--junit-->
         <dependency>
