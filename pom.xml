@@ -32,10 +32,14 @@
 
     <repositories>
         <repository>
-            <id>lss233-minecraft</id>
-            <name>Lss233's Minecraft Repository</name>
-            <url>https://lss233.com/artifactory/minecraft</url>
+            <id>elmakers-repo</id>
+            <url>http://maven.elmakers.com/repository</url>
         </repository>
+        <!--<repository>-->
+        <!--<id>lss233-minecraft</id>-->
+        <!--<name>Lss233's Minecraft Repository</name>-->
+        <!--<url>https://lss233.com/artifactory/minecraft</url>-->
+        <!--</repository>-->
     </repositories>
 
     <dependencies>
