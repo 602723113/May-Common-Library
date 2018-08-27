@@ -189,7 +189,7 @@ public final class ReflectionUtils {
      *
      * @param clazz     class's object
      * @param fieldName field's name
-     * @return true -> yes, false -> no
+     * @return return true if the field is exist
      */
     public static boolean hasField(Class<?> clazz, String fieldName) {
         boolean has;
@@ -208,7 +208,7 @@ public final class ReflectionUtils {
      *
      * @param clazz  class's object
      * @param filter filter obj
-     * @return true -> yes, false -> no
+     * @return return true if the field is exist
      */
     public static boolean hasField(Class<?> clazz, FieldFilter filter) {
         Validate.notNull(filter);
@@ -229,7 +229,7 @@ public final class ReflectionUtils {
      *
      * @param classPath class's path
      * @param fieldName field's name
-     * @return true -> yes, false -> no
+     * @return return true if the field is exist
      * @see #hasField(Class, String)
      */
     public static boolean hasField(String classPath, String fieldName) throws ClassNotFoundException {
@@ -241,7 +241,7 @@ public final class ReflectionUtils {
      *
      * @param clazz          class's object
      * @param parameterTypes the constructor with the specified parameter types
-     * @return true -> yes, false -> no
+     * @return return true if the constructor is exist
      */
     public static boolean hasConstructor(Class<?> clazz, Class<?>... parameterTypes) {
         boolean has;
@@ -259,7 +259,7 @@ public final class ReflectionUtils {
      *
      * @param clazz  class's object
      * @param filter filter obj
-     * @return true -> yes, false -> no
+     * @return return true if the constructor is exist
      */
     public static boolean hasConstructor(Class<?> clazz, ConstructorFilter filter) {
         Validate.notNull(filter);
@@ -280,7 +280,7 @@ public final class ReflectionUtils {
      *
      * @param classPath      class's path
      * @param parameterTypes the constructor with the specified parameter types
-     * @return true -> yes, false -> no
+     * @return return true if the constructor is exist
      * @see #hasField(Class, String)
      */
     public static boolean hasConstructor(String classPath, Class<?>... parameterTypes) throws ClassNotFoundException {
@@ -294,7 +294,7 @@ public final class ReflectionUtils {
      * @param clazz          class's object
      * @param methodName     method's name
      * @param parameterTypes the method with the specified parameter types
-     * @return true -> yes, false -> no
+     * @return return true if the method is exist
      */
     public static boolean hasMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
         boolean has;
@@ -312,7 +312,7 @@ public final class ReflectionUtils {
      *
      * @param clazz  class's object
      * @param filter filter obj
-     * @return true -> yes, false -> no
+     * @return return true if the constructor is exist
      */
     public static boolean hasMethod(Class<?> clazz, MethodFilter filter) {
         Validate.notNull(filter);
@@ -334,7 +334,7 @@ public final class ReflectionUtils {
      * @param classPath      class's path
      * @param methodName     method's name
      * @param parameterTypes the method with the specified parameter types
-     * @return true -> yes, false -> no
+     * @return return true if the constructor is exist
      * @see #hasMethod(Class, String, Class[])
      */
     public static boolean hasMethod(String classPath, String methodName, Class<?>... parameterTypes) throws ClassNotFoundException {
