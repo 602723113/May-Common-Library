@@ -14,10 +14,11 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Title工具类
  *
- * @author Zoyn
+ * @author Zoyn, D_xiaox
  * @since 2016/12/26
  * <p>
  * update 2017/8/05
+ * update 2018/8/02 星空(D_xiaox)
  */
 public final class TitleUtils {
 
@@ -47,10 +48,6 @@ public final class TitleUtils {
             // write datas
             packet.getTitleActions().write(0, EnumWrappers.TitleAction.TITLE); // EnumTitleAction
             packet.getChatComponents().write(0, WrappedChatComponent.fromText(translatedTitle)); // 标题内容
-            packet.getIntegers()
-                    .write(0, fadeIn)
-                    .write(1, stay)
-                    .write(2, fadeOut);
             try {
                 pm.sendServerPacket(player, packet, false); // 发送数据包
             } catch (InvocationTargetException e) {
@@ -65,14 +62,25 @@ public final class TitleUtils {
             packet = pm.createPacket(PacketType.Play.Server.TITLE);
             packet.getTitleActions().write(0, EnumWrappers.TitleAction.SUBTITLE);
             packet.getChatComponents().write(0, WrappedChatComponent.fromText(translatedSubTitle));
-            packet.getIntegers().write(0, fadeIn);
-            packet.getIntegers().write(1, stay);
-            packet.getIntegers().write(2, fadeOut);
             try {
                 pm.sendServerPacket(player, packet, false);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
+
+        // 以前无法设置时间, 现在可以了
+        packet = pm.createPacket(PacketType.Play.Server.TITLE);
+        packet.getTitleActions().write(0, EnumWrappers.TitleAction.TIMES);
+        packet.getIntegers()
+                .write(0, fadeIn) // ---> c
+                .write(1, stay) // ---> d
+                .write(2, fadeOut); // ---> e
+        try {
+            pm.sendServerPacket(player, packet, false);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
     }
 }
