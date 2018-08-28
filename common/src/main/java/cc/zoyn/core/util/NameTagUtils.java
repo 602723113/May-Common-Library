@@ -1,6 +1,5 @@
 package cc.zoyn.core.util;
 
-import cc.zoyn.core.util.nms.NMSUtils;
 import com.mojang.authlib.GameProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
