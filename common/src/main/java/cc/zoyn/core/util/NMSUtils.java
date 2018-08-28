@@ -1,4 +1,4 @@
-package cc.zoyn.core.util.nms;
+package cc.zoyn.core.util;
 
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
@@ -83,25 +83,25 @@ public final class NMSUtils {
      * @return {@link Object}
      */
     public static Object getNMSItem(ItemStack itemStack) {
+        Validate.notNull(itemStack);
+
         if (asNMSCopyMethod == null) {
             Class craftItemStack = NMSUtils.getOBCClass("inventory.CraftItemStack");
-            Validate.notNull(itemStack);
+            System.out.println("CIS: " + craftItemStack);
 
             try {
-                //CraftItemStack
-
+                // CraftItemStack
                 asNMSCopyMethod = getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         try {
-            return asNMSCopyMethod.invoke(Validate.notNull(itemStack));
+            return ReflectionUtils.invokeMethod(asNMSCopyMethod, null, itemStack);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return itemStack;
     }
 
     /**
