@@ -8,9 +8,12 @@
 
 ### Feature
 > In _MCLib_ you can enjoy the following features
-- Easy to use NBT
 - Easy to use NMS
+- Easy to use Tellraw
+- Easy to use ServerPing
+- Easy to use Book
 - Easy to use 1.12 new features **Advancement**
+- Easy to use Pager
 - A lot of Utils
 - ...
 

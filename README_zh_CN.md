@@ -4,9 +4,12 @@
 [Wiki](https://github.com/602723113/May-Common-Library/wiki)  
 ### 特性
 > 在 _MCLib_ 中你可以享受以下功能
-- 简易使用NBT的内容
 - 简易使用NMS
+- 简易的使用Tellraw
+- 简易的使用ServerPing
+- 简易的使用Book
 - 简易的使用1.12的新特性Advancement
+- 简易的使用分页(Pager)
 - 封装了许许多多的Util
 - ...
 
