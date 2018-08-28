@@ -1,7 +1,9 @@
 package cc.zoyn.core.tellraw;
 
 import com.google.common.collect.Lists;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -160,12 +162,6 @@ public class Tellraw implements ConfigurationSerializable {
         return addAnotherTellraw(new JsonImpl(String.format(text)));
     }
 
-    /**
-     * 结束上一串消息 开始下一串数据[使用一个JsonImpl的实例]
-     *
-     * @param part 下一段内容
-     * @return {@link Tellraw}
-     */
     private Tellraw addAnotherTellraw(JsonImpl part) {
         JsonImpl last = latest();
         if (!last.hasText()) {
@@ -174,6 +170,15 @@ public class Tellraw implements ConfigurationSerializable {
             jsonParts.add(part);
         }
         return this;
+    }
+
+    /**
+     * 给指定玩家发送Tellraw
+     *
+     * @param player 给定的玩家
+     */
+    public void send(Player player) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + toJsonString());
     }
 
     /**
