@@ -150,7 +150,7 @@ public final class ReflectionUtils {
      */
     public static Method getMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
         if (hasMethod(clazz, methodName, parameterTypes)) {
-            return clazz.getMethod(methodName, parameterTypes);
+            return clazz.getDeclaredMethod(methodName, parameterTypes);
         }
         return null;
     }
