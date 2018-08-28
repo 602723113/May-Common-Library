@@ -10,9 +10,11 @@ public class ServerPingTest {
 
     @Test
     public void testServerPing() {
-//        ServerPing serverPing = new ServerPing("mc.hypixel.net");
+//        ServerPing serverPing = new ServerPing("mc.52ko.com");
 //        serverPing.pingServer();
+
 //        ServerPingReply reply = serverPing.getReply();
+//        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(reply.getOriginalJson())));
 //        Assert.assertTrue(reply.getVersion().getName().contains("1.12"));
     }
 
