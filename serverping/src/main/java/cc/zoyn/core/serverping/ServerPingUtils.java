@@ -79,8 +79,8 @@ public final class ServerPingUtils {
                     "            }\n" +
                     "            motd += part.text;\n" +
                     "        })\n" +
-                    "    } else if(obj.description) {\n" +
-                    "       motd = obj.description\n" +
+                    "    } else if(obj.description.text) {\n" +
+                    "       motd = obj.description.text\n" +
                     "    }\n" +
                     "    obj.version_name = obj.version.name;\n" +
                     "    obj.version_protocol = obj.version.protocol;\n" +
@@ -91,6 +91,7 @@ public final class ServerPingUtils {
                     "    return obj;\n" +
                     "}");
         } catch (ScriptException e) {
+            e.printStackTrace();
             System.out.println("警告! MOTD 解析脚本初始化失败!");
         }
     }
