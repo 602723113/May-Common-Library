@@ -23,6 +23,7 @@ public final class NMSUtils {
     private static Field playerConnectionField;
     private static Method sendPacketMethod;
     private static Method asNMSCopyMethod;
+    private static Method asBukkitCopyMethod;
     private static Method stringAsIChatBaseComponentMethod;
     private static Method craftBukkitEntityPlayerGetHandleMethod;
 
@@ -39,6 +40,7 @@ public final class NMSUtils {
             playerConnectionField = getFieldByFieldName(getNMSClass("EntityPlayer"), "playerConnection");
             sendPacketMethod = getMethod(getNMSClass("PlayerConnection"), "sendPacket", getNMSClass("Packet"));
             asNMSCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
+            asBukkitCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asBukkitCopy", getNMSClass("ItemStack"));
             stringAsIChatBaseComponentMethod = getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
             craftBukkitEntityPlayerGetHandleMethod = getMethod(getOBCClass("entity.CraftPlayer"), "getHandle");
         } catch (NoSuchMethodException | NoSuchFieldException e) {
@@ -69,6 +71,30 @@ public final class NMSUtils {
         try {
             return Class.forName("org.bukkit.craftbukkit." + NMSUtils.getVersion() + "." + className);
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将NMSItem转换为BukkitItem
+     * <p>
+     * Convert NMS Item to Bukkit Item
+     *
+     * @param nmsItem the NMSItem Object
+     * @return {@link Object}
+     */
+    public static Object getBukkitItem(Object nmsItem) {
+        if (asBukkitCopyMethod == null) {
+            try {
+                asNMSCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            return invokeMethod(asBukkitCopyMethod, null, nmsItem);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
