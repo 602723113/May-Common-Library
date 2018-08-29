@@ -1,12 +1,13 @@
 package cc.zoyn.core.tellraw;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,32 @@ public class Tellraw implements ConfigurationSerializable {
     @SuppressWarnings("unchecked")
     public Tellraw(Map<String, Object> map) {
         this.jsonParts = (List<JsonImpl>) map.get("jsonParts");
+    }
+
+    /**
+     * 当玩家光标悬停在tellraw上时，它会向玩家显示一个物品
+     * <p>
+     * When the player cursor hover the tellraw, it will show a item to player
+     *
+     * @param itemStack the item
+     * @return {@link Tellraw}
+     */
+    public Tellraw showItem(ItemStack itemStack) {
+        onHover("show_item", ItemSerializer.getItemStackJson(itemStack));
+        return this;
+    }
+
+    /**
+     * 当玩家点击tellraw时，它会打开一个url并提示玩家
+     * <p>
+     * When the player click the tellraw, it will open a url and tips player
+     *
+     * @param url the url
+     * @return {@link Tellraw}
+     */
+    public Tellraw openUrl(String url) {
+        onClick("open_url", url);
+        return this;
     }
 
     /**
@@ -199,7 +226,7 @@ public class Tellraw implements ConfigurationSerializable {
 
     @Override
     public Map<String, Object> serialize() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = Maps.newHashMap();
         map.put("jsonParts", this.jsonParts);
         return map;
     }
