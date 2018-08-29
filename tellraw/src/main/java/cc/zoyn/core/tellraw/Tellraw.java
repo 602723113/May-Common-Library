@@ -38,6 +38,39 @@ public class Tellraw implements ConfigurationSerializable {
     }
 
     /**
+     * 当玩家光标悬停在tellraw上时，它将向玩家显示成就或统计数据
+     * <p>
+     * When the player cursor hover the tellraw, it will show a achievement or statistic to player
+     * <p>
+     * The key can be found at here
+     * https://minecraft.gamepedia.com/Achievements#List_of_achievements
+     * https://minecraft.gamepedia.com/Statistics#List_of_general_statistics
+     * <p/>
+     *
+     * @param value the id of achievement or statistic
+     * @return {@link Tellraw}
+     */
+    public Tellraw showAchievement(String value) {
+        onHover("show_achievement", value);
+        return this;
+    }
+
+    /**
+     * 当玩家光标悬停在tellraw上时，它将向玩家显示实体信息
+     * <p>
+     * When the player cursor hover the tellraw, it will show a entity information to player
+     *
+     * @param name       the name
+     * @param entityType the entity type
+     * @param id         the id
+     * @return {@link Tellraw}
+     */
+    public Tellraw showEntity(String name, String entityType, String id) {
+        onHover("show_entity", "{\"id\":\"" + id + "\", \"name\":\"" + name + "\", \"type\":\"" + entityType + "\"}");
+        return this;
+    }
+
+    /**
      * 当玩家光标悬停在tellraw上时，它会向玩家显示一个物品
      * <p>
      * When the player cursor hover the tellraw, it will show a item to player
@@ -186,7 +219,7 @@ public class Tellraw implements ConfigurationSerializable {
      * @return {@link Tellraw}
      */
     public Tellraw addAnotherTellraw(String text) {
-        return addAnotherTellraw(new JsonImpl(String.format(text)));
+        return addAnotherTellraw(new JsonImpl(text));
     }
 
     private Tellraw addAnotherTellraw(JsonImpl part) {
