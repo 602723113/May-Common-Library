@@ -15,9 +15,9 @@ import static cc.zoyn.core.util.reflect.ReflectionUtils.getMethod;
 
 /**
  * 书本 - 工具类
- * <br />
+ * <p>
  * 简易的打开一个带有特定json的书
- * <br />
+ * <p>
  * Easy to open a book with the specified json
  *
  * @author Zoyn
@@ -51,18 +51,18 @@ public final class BookUtils {
     }
 
     /**
+     * 打开一个虚拟的书
      * <p>
-     * 打开一个虚拟的书<br/>
      * open a virtual book
-     * </p>
      *
-     * @param item   书
-     * @param player 玩家
-     * @return 布尔值[true成功/false失败]
+     * @param item   给定的书
+     * @param player 给定的玩家
+     * @return return true if open book successfully
      */
     public static boolean openBook(Player player, ItemStack item) {
-        if (!initialised)
+        if (!initialised) {
             return false;
+        }
         ItemStack held = player.getInventory().getItemInMainHand();
         try {
             player.getInventory().setItemInMainHand(item);
@@ -77,12 +77,12 @@ public final class BookUtils {
 
     /**
      * 打开一个虚拟的书
-     * <br />
+     * <p>
      * open a virtual book
      *
-     * @param player player object
+     * @param player the player
      * @param book   a {@link Book} object
-     * @return true mean open success / false mean open fail
+     * @return return true if open book successfully
      */
     public static boolean openBook(Player player, Book book) {
         return openBook(player, book.getItem());
@@ -90,8 +90,8 @@ public final class BookUtils {
 
     /**
      * 以JSON格式来设置书的页面
-     * <br />
-     * use json to set book's page
+     * <p>
+     * use json to set the book pages
      *
      * @param metadata book's meta
      * @param pages    JSON lists
@@ -113,8 +113,8 @@ public final class BookUtils {
 
     /**
      * 用{@link Page}来设置书的页面
-     * <br />
-     * use {@link Page} to set book's page
+     * <p>
+     * use {@link Page} to set the book page
      *
      * @param metadata book's meta
      * @param pages    {@link Page} lists
