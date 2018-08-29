@@ -14,6 +14,7 @@
 - Easy to use Book
 - Easy to use 1.12 new features **Advancement**
 - Easy to use Pager
+- Easy to use Reflection
 - A lot of Utils
 - ...
 
