@@ -30,7 +30,7 @@ public final class EffectsSerializerUtils {
      * @param paramCollection 药水数据
      * @return Base64数据
      */
-    public static String potionEffectsToBase64(Collection<PotionEffect> paramCollection) {
+    public static String toBase64(Collection<PotionEffect> paramCollection) {
         try {
             ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
             BukkitObjectOutputStream localBukkitObjectOutputStream = new BukkitObjectOutputStream(localByteArrayOutputStream);
@@ -52,7 +52,7 @@ public final class EffectsSerializerUtils {
      * @param paramString 药水Base64数据
      * @return 药水集合
      */
-    public static Collection<PotionEffect> potionEffectsFromBase64(String paramString) {
+    public static Collection<PotionEffect> fromBase64(String paramString) {
         try {
             ByteArrayInputStream localByteArrayInputStream = new ByteArrayInputStream(
                     Base64Coder.decodeLines(paramString));
