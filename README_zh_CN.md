@@ -5,6 +5,7 @@
 ### 特性
 > 在 _MCLib_ 中你可以享受以下功能
 - 简易使用NMS
+- 简易使用NBT
 - 简易的使用Tellraw
 - 简易的使用ServerPing
 - 简易的使用Book
