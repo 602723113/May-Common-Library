@@ -1,4 +1,4 @@
-# May Common Library (MCLib) [![Build Status](https://travis-ci.org/602723113/May-Common-Library.svg?branch=dev)](https://travis-ci.org/602723113/May-Common-Library) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e8b69ada84954b13a415981844a7e376)](https://www.codacy.com/app/602723113/May-Common-Library?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=602723113/May-Common-Library&amp;utm_campaign=Badge_Grade)
+# May Common Library (MCLib) [![Build status](https://ci.appveyor.com/api/projects/status/fi528yanx76w25qe?svg=true)](https://ci.appveyor.com/project/602723113/may-common-library) [![Build Status](https://travis-ci.org/602723113/May-Common-Library.svg?branch=dev)](https://travis-ci.org/602723113/May-Common-Library) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e8b69ada84954b13a415981844a7e376)](https://www.codacy.com/app/602723113/May-Common-Library?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=602723113/May-Common-Library&amp;utm_campaign=Badge_Grade)
 > 一个基于BukkitAPI开发的类库  
 
 [Wiki](https://github.com/602723113/May-Common-Library/wiki)  
