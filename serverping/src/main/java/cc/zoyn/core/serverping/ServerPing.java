@@ -20,7 +20,7 @@ public class ServerPing {
     private String hostName;
     private int port = 25565;
     private int timeOut = 2000;
-    private String chatSet = "UTF-8";
+    private String charSet = "UTF-8";
     private ServerPingReply reply;
 
     public ServerPing(String hostName) {
@@ -68,7 +68,7 @@ public class ServerPing {
             int length = readVarInt(in);
             byte[] data = new byte[length];
             in.readFully(data);
-            String json = new String(data, this.chatSet);
+            String json = new String(data, this.charSet);
 
             // format data
             ScriptObjectMirror mirror = (ScriptObjectMirror) ((Invocable) ServerPingUtils.getEngine()).invokeFunction("parse", json);
