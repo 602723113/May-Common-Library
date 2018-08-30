@@ -48,7 +48,7 @@ public final class TimeUtils {
 
     /**
      * 判断今日是否为休假日
-     * <br />
+     * <p>
      * check today is week
      *
      * @return true -> yes / false -> no
@@ -60,7 +60,7 @@ public final class TimeUtils {
 
     /**
      * 日期格式化
-     * <br />
+     * <p>
      * format a date
      *
      * @param date             dateObj
@@ -73,7 +73,7 @@ public final class TimeUtils {
 
     /**
      * 日期格式化，默认日期格式 yyyy-MM-dd
-     * <br />
+     * <p>
      * format a date, use yyyy-MM-dd
      *
      * @param date dateObj
@@ -85,7 +85,7 @@ public final class TimeUtils {
 
     /**
      * 日期格式化，默认日期格式 yyyy年MM月dd日
-     * <br />
+     * <p>
      * format a date, use yyyy年MM月dd日
      *
      * @param date dateObj

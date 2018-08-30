@@ -173,7 +173,6 @@ public final class FileUtils {
 
         } else {
             out.putNextEntry(new ZipEntry(base)); // 创建zip压缩进入 base 文件
-            System.out.println(base);
 
             try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                 write2Out(in, out);
@@ -185,7 +184,7 @@ public final class FileUtils {
 
     private static void write2Out(InputStream input, OutputStream out) throws IOException {
         byte[] b = new byte[1024];
-        int c = 0;
+        int c;
         while ((c = input.read(b)) != -1) {
             out.write(b, 0, c);
             out.flush();

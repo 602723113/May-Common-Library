@@ -17,7 +17,7 @@ public final class EntityUtils {
 
     /**
      * 取目标玩家
-     * <br />
+     * <p>
      * get player target
      *
      * @param player 玩家
@@ -49,22 +49,22 @@ public final class EntityUtils {
     }
 
     /**
-     * 取附近的实体[返回数组]
+     * 取附近的实体
      *
      * @param loc    坐标
      * @param radius 半径
-     * @return 实体数组
+     * @return return a {@link Entity} array
      */
     public static Entity[] getNearbyEntitiesArrays(Location loc, double radius) {
         return getNearbyEntitiesList(loc, radius).toArray(new Entity[]{});
     }
 
     /**
-     * 取附近的实体[返回List]
+     * 取附近的实体
      *
      * @param loc    坐标
      * @param radius 半径
-     * @return 实体集合
+     * @return {@link List}
      */
     public static List<Entity> getNearbyEntitiesList(Location loc, double radius) {
         int Radius = (int) radius;
@@ -90,11 +90,11 @@ public final class EntityUtils {
     }
 
     /**
-     * 取附近的玩家 [返回List]
+     * 取附近的玩家
      *
      * @param loc    坐标
      * @param radius 半径
-     * @return 玩家集合
+     * @return {@link Player}
      */
     public static List<Player> getNearbyPlayersList(Location loc, double radius) {
         List<Entity> radiusEntities = getNearbyEntitiesList(loc, radius);

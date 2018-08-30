@@ -11,8 +11,10 @@ public final class MathUtils {
     }
 
     /**
-     * get two location's distance
-     * 取两坐标点的距离<br />
+     * Get two locations distance
+     * <p>
+     * 取两坐标点的距离
+     * <p>
      * 使用空间两点距离公式计算: √(X2 - X1)^2 + (Y2 - Y1)^2 + (Z2 - Z1)^2
      *
      * @param location1 坐标1
@@ -24,6 +26,14 @@ public final class MathUtils {
         return Math.sqrt(Math.pow(location1.getX() - location2.getX(), 2) + Math.pow(location1.getY() - location2.getY(), 2) + Math.pow(location1.getZ() - location2.getZ(), 2));
     }
 
+    /**
+     * 使一个向量围绕Y轴旋转
+     * Make a vector rotate around Y axis
+     *
+     * @param v     the vector
+     * @param angle the rotate angle
+     * @return {@link Vector}
+     */
     public static Vector rotateAroundAxisY(Vector v, double angle) {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);

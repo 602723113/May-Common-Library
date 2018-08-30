@@ -21,7 +21,7 @@ public final class TabUtils {
 
     /**
      * 更改一个玩家的Tab列表
-     * <br />
+     * <p>
      * change a player's tab
      *
      * @param player player
