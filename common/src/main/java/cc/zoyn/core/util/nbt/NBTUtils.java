@@ -6,12 +6,13 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class NBTUtils {
 
     private static Class<?> NMS_ITEM_STACK;
-    private static Class<?> NBT_TAG_COMPOUND;
     private static Class<?> NBT_TAG_LIST;
+    public static Class<?> NBT_TAG_COMPOUND;
 
     /* The method of NMSItem */
     private static Method HAS_TAG;
@@ -105,7 +106,6 @@ public class NBTUtils {
         return nbtTag;
     }
 
-
     /**
      * Return a empty NBTTagCompound
      *
@@ -154,36 +154,19 @@ public class NBTUtils {
         return (ItemStack) bukkitItem;
     }
 
-    public static void removeTagCompound(Object nbtTagList, int index) throws Exception {
-        ReflectionUtils.invokeMethod(REMOVE, nbtTagList, index);
+    /**
+     * 利用给定的数据来设置nbt
+     * <p>
+     * Use the given data to set nbt
+     *
+     * @param nbtTagCompound the nbt
+     * @param key            the key of json object
+     * @param value          the value of json object
+     * @throws Exception When the Set method is null, it will throw an excpetion
+     */
+    public static void setTagCompound(Object nbtTagCompound, String key, Object value) throws Exception {
+        ReflectionUtils.invokeMethod(SET_DATA, nbtTagCompound, key, value);
     }
-
-    public static TagCompound getTagCompound(Object nbtTagList, int index) throws Exception {
-        return new TagCompound(ReflectionUtils.invokeMethod(GET, nbtTagList, index));
-    }
-//
-//    public static void setListTagCompound(Object nbtTagCompound, String key, List<TagCompound> value) throws Exception {
-//        Object nbtTagList = newNBTTagList();
-//        value.forEach(tagCompound -> {
-//            try {
-//                ReflectionUtils.invokeMethod(ADD, nbtTagList, tagCompound.build());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        System.out.println(nbtTagList);
-//        setTagCompound(nbtTagCompound, key, nbtTagList);
-//    }
-//
-//    public static void setTagCompound(Object nbtTagCompound, String key, TagCompound value) throws Exception {
-//        System.out.println("value: " + value.build());
-//        setTagCompound(nbtTagCompound, key, value.build());
-//    }
-//
-//    public static void setTagCompound(Object nbtTagCompound, String key, Object value) throws Exception {
-//        System.out.println("value: " + value);
-//        ReflectionUtils.invokeMethod(SET_DATA, nbtTagCompound, key, value);
-//    }
 
     /**
      * 利用给定的数据来设置nbt
@@ -193,7 +176,55 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
+     */
+    public static void setListTagCompound(Object nbtTagCompound, String key, List<TagCompound> value) throws Exception {
+        Object nbtTagList = newNBTTagList();
+        value.forEach(tagCompound -> {
+            try {
+                ReflectionUtils.invokeMethod(ADD, nbtTagList, tagCompound.build());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        setTagCompound(nbtTagCompound, key, nbtTagList);
+    }
+
+    /**
+     * 利用index来移除一个NBTTagList里的NBTBase数据
+     * <p>
+     * Use index to remove NBTBase data from an NBTTagList
+     *
+     * @param nbtTagList the nbt tag list
+     * @param index      the index
+     * @throws Exception When the Remove method is null or the nbtTagList object is not an object of NBTTagList, it will throw an excpetion
+     */
+    public static void removeTagCompound(Object nbtTagList, int index) throws Exception {
+        ReflectionUtils.invokeMethod(REMOVE, nbtTagList, index);
+    }
+
+    /**
+     * 利用index来获取一个NBTTagList里的NBTBase数据
+     * <p>
+     * Use index to get NBTBase data from an NBTTagList
+     *
+     * @param nbtTagList the nbt tag list
+     * @param index      the index
+     * @throws Exception When the Get method is null or the nbtTagList object is not an object of NBTTagList, it will throw an excpetion
+     */
+    public static TagCompound getTagCompound(Object nbtTagList, int index) throws Exception {
+        return new TagCompound(ReflectionUtils.invokeMethod(GET, nbtTagList, index));
+    }
+
+    /**
+     * 利用给定的数据来设置nbt
+     * <p>
+     * Use the given data to set nbt
+     *
+     * @param nbtTagCompound the nbt
+     * @param key            the key of json object
+     * @param value          the value of json object
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setInt(Object nbtTagCompound, String key, int value) throws Exception {
         ReflectionUtils.invokeMethod(SET_INT, nbtTagCompound, key, value);
@@ -207,7 +238,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setString(Object nbtTagCompound, String key, String value) throws Exception {
         ReflectionUtils.invokeMethod(SET_STRING, nbtTagCompound, key, value);
@@ -221,7 +252,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setShort(Object nbtTagCompound, String key, short value) throws Exception {
         ReflectionUtils.invokeMethod(SET_SHORT, nbtTagCompound, key, value);
@@ -235,7 +266,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setByte(Object nbtTagCompound, String key, byte value) throws Exception {
         ReflectionUtils.invokeMethod(SET_BYTE, nbtTagCompound, key, value);
@@ -249,7 +280,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setLong(Object nbtTagCompound, String key, long value) throws Exception {
         ReflectionUtils.invokeMethod(SET_LONG, nbtTagCompound, key, value);
@@ -263,7 +294,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setFloat(Object nbtTagCompound, String key, float value) throws Exception {
         ReflectionUtils.invokeMethod(SET_FLOAT, nbtTagCompound, key, value);
@@ -277,7 +308,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setDouble(Object nbtTagCompound, String key, double value) throws Exception {
         ReflectionUtils.invokeMethod(SET_DOUBLE, nbtTagCompound, key, value);
@@ -291,7 +322,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setIntArray(Object nbtTagCompound, String key, int[] value) throws Exception {
         ReflectionUtils.invokeMethod(SET_INT_ARRAY, nbtTagCompound, key, value);
@@ -305,7 +336,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setByteArray(Object nbtTagCompound, String key, byte[] value) throws Exception {
         ReflectionUtils.invokeMethod(SET_BYTE_ARRAY, nbtTagCompound, key, value);
@@ -319,7 +350,7 @@ public class NBTUtils {
      * @param nbtTagCompound the nbt
      * @param key            the key of json object
      * @param value          the value of json object
-     * @throws Exception When the Set method is null, it will return an excpetion
+     * @throws Exception When the Set method is null, it will throw an excpetion
      */
     public static void setBoolean(Object nbtTagCompound, String key, boolean value) throws Exception {
         ReflectionUtils.invokeMethod(SET_BOOLEAN, nbtTagCompound, key, value);

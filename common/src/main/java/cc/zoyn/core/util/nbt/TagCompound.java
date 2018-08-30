@@ -2,12 +2,13 @@ package cc.zoyn.core.util.nbt;
 
 import com.google.common.collect.Maps;
 
+import java.util.List;
 import java.util.Map;
 
 public class TagCompound {
     private Object nbtTagCompound;
 
-    private static Map<String, Object> data = Maps.newHashMap();
+    private Map<String, Object> data = Maps.newHashMap();
 
     public TagCompound() {
         this.nbtTagCompound = NBTUtils.newNBTTagCompound();
@@ -21,20 +22,24 @@ public class TagCompound {
         return nbtTagCompound;
     }
 
+    public Map<String, Object> getData() {
+        return data;
+    }
+
     public TagCompound put(String key, Object value) {
         data.put(key, value);
         return this;
     }
 
-//    public TagCompound putListCompound(String key, List<TagCompound> value) {
-//        data.put(key, value);
-//        return this;
-//    }
-//
-//    public TagCompound putCompound(String key, TagCompound value) {
-//        data.put(key, value);
-//        return this;
-//    }
+    public TagCompound putListCompound(String key, List<TagCompound> value) {
+        data.put(key, value);
+        return this;
+    }
+
+    public TagCompound putCompound(String key, TagCompound value) {
+        data.put(key, value.build());
+        return this;
+    }
 
     public TagCompound putInt(String key, int value) {
         data.put(key, value);
@@ -84,7 +89,11 @@ public class TagCompound {
     public Object build() {
         data.forEach((key, value) -> {
             try {
-                if (value instanceof Integer) {
+                if (value.getClass().equals(NBTUtils.NBT_TAG_COMPOUND)) {
+                    NBTUtils.setTagCompound(nbtTagCompound, key, value);
+                } else if (value instanceof List) {
+                    NBTUtils.setListTagCompound(nbtTagCompound, key, (List<TagCompound>) value);
+                } else if (value instanceof Integer) {
                     NBTUtils.setInt(nbtTagCompound, key, (int) value);
                 } else if (value instanceof String) {
                     NBTUtils.setString(nbtTagCompound, key, (String) value);
@@ -105,11 +114,6 @@ public class TagCompound {
                 } else if (value instanceof byte[]) {
                     NBTUtils.setByteArray(nbtTagCompound, key, (byte[]) value);
                 }
-//                else if (value instanceof TagCompound) {
-//                    NBTUtils.setTagCompound(nbtTagCompound, key, (TagCompound) value);
-//                } else if (value instanceof List) {
-//                    NBTUtils.setListTagCompound(nbtTagCompound, key, (List<TagCompound>) value);
-//                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
