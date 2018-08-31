@@ -1,6 +1,7 @@
 package cc.zoyn.core;
 
 import cc.zoyn.core.event.PlayerOpenBackpackEvent;
+import cc.zoyn.core.test.AsyncPlayerChatListener;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
@@ -39,6 +40,8 @@ public class Core extends JavaPlugin {
                 }
             }
         });
+
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
     }
 
     /**

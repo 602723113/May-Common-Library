@@ -9,18 +9,20 @@ import java.lang.reflect.Method;
 
 public class ItemSerializer {
 
-    private static Method save;
+    private static Method SAVE_NBT;
+    private static Method MOJANGSON_TO_NBT;
 
     static {
         try {
-            save = ReflectionUtils.getMethod(NMSUtils.getNMSClass("ItemStack"), "save", NMSUtils.getNMSClass("NBTTagCompound"));
+            SAVE_NBT = ReflectionUtils.getMethod(NMSUtils.getNMSClass("ItemStack"), "save", NMSUtils.getNMSClass("NBTTagCompound"));
+            MOJANGSON_TO_NBT = ReflectionUtils.getMethod(NMSUtils.getNMSClass("MojangsonParser"), "parse", String.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Create the item json data
+     * Create the item mojangson data
      *
      * @param itemStack the item
      * @return {@link String}
@@ -29,7 +31,7 @@ public class ItemSerializer {
         Object nmsItem = NMSUtils.getNMSItem(itemStack);
         Object savedTag = null;
         try {
-            savedTag = ReflectionUtils.invokeMethod(save, nmsItem, NBTUtils.newNBTTagCompound());
+            savedTag = ReflectionUtils.invokeMethod(SAVE_NBT, nmsItem, NBTUtils.newNBTTagCompound());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,6 +40,24 @@ public class ItemSerializer {
         } else {
             return "null";
         }
+    }
+
+    /**
+     * Load a item by using mojangson data
+     *
+     * @param mojangson the mojangson data
+     * @return {@link ItemStack}
+     */
+    public static ItemStack loadItemStackJson(String mojangson) {
+        ItemStack itemStack = null;
+        try {
+            Object nbtTag = ReflectionUtils.invokeMethod(MOJANGSON_TO_NBT, null, mojangson);
+            Object nmsItem = NBTUtils.newNMSItemStack(nbtTag);
+            itemStack = (ItemStack) NMSUtils.getBukkitItem(nmsItem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemStack;
     }
 
 }

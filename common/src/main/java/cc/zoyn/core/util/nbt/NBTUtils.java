@@ -5,6 +5,7 @@ import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -37,11 +38,16 @@ public class NBTUtils {
     private static Method GET;
     private static Method REMOVE;
 
+    // It's public ItemStack(NBTTagCompound nbtTagCompound)
+    private static Constructor<?> NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT;
+
     static {
         try {
             NMS_ITEM_STACK = NMSUtils.getNMSClass("ItemStack");
             NBT_TAG_COMPOUND = NMSUtils.getNMSClass("NBTTagCompound");
             NBT_TAG_LIST = NMSUtils.getNMSClass("NBTTagList");
+
+            NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT = NMS_ITEM_STACK.getConstructor(NBT_TAG_COMPOUND);
 
             HAS_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "hasTag");
             GET_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "getTag");
@@ -104,6 +110,21 @@ public class NBTUtils {
             e.printStackTrace();
         }
         return nbtTag;
+    }
+
+    /**
+     * Return an NMSItem with the given nbt
+     *
+     * @param nbtTagCompound the nbt
+     * @return {@link Object}
+     */
+    public static Object newNMSItemStack(Object nbtTagCompound) {
+        try {
+            return ReflectionUtils.instantiateObject(NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT, nbtTagCompound);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
