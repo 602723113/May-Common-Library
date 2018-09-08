@@ -1,0 +1,6 @@
+name: May-Common-Library
+main: cc.zoyn.core.Core
+version: 1.0.0
+author: Zoyn
+prefix: Core
+depend: [ProtocolLib]
