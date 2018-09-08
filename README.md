@@ -24,9 +24,9 @@
 Step 1. Add the JitPack repository to your build file
 ```
 <repositories>
-	<repository>
-		  <id>jitpack.io</id>
-		  <url>https://jitpack.io</url>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
   </repository>
 </repositories>
 ```
@@ -34,8 +34,8 @@ Step 2. Add the dependency
 ```
 <dependency>
     <groupId>com.github.602723113</groupId>
-	  <artifactId>May-Common-Library</artifactId>
-	  <version>1.0.0</version>
+    <artifactId>May-Common-Library</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
   
@@ -43,9 +43,9 @@ Step 2. Add the dependency
 Step 1. Add it in your root build.gradle at the end of repositories:
 ```
 allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-		}
+  repositories {
+    maven { url 'https://jitpack.io' }
+  }
 }
 ```
 Step 2. Add the dependency
