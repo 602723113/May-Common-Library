@@ -31,7 +31,7 @@ Step 2. 添加dependency
 <dependency>
     <groupId>com.github.602723113</groupId>
     <artifactId>May-Common-Library</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
   
@@ -47,7 +47,7 @@ allprojects {
 Step 2. 添加dependency
 ```
 dependencies {
-    implementation 'com.github.602723113:May-Common-Library:1.0.0'
+    implementation 'com.github.602723113:May-Common-Library:1.0.1'
 }
 ```
 
