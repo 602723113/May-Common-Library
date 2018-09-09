@@ -7,6 +7,14 @@ import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
 
+/**
+ * 此类用于将物品转换为mojangson数据或将mojangson数据转换为物品
+ * <p>
+ * This class is convert an item to mojangson data or unconvert mojangson data to an item
+ *
+ * @author Zoyn
+ * @since 2018/8/29
+ */
 public class ItemSerializer {
 
     private static Method SAVE_NBT;
