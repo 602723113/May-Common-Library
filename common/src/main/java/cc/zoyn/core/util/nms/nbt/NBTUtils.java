@@ -40,6 +40,8 @@ public class NBTUtils {
 
     // It's public ItemStack(NBTTagCompound nbtTagCompound)
     private static Constructor<?> NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT;
+    // Support 1.11 below
+    private static Method NMS_ITEM_STACK_METHOD_WITH_NBT;
 
     static {
         try {
@@ -47,7 +49,8 @@ public class NBTUtils {
             NBT_TAG_COMPOUND = NMSUtils.getNMSClass("NBTTagCompound");
             NBT_TAG_LIST = NMSUtils.getNMSClass("NBTTagList");
 
-            NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT = NMS_ITEM_STACK.getConstructor(NBT_TAG_COMPOUND);
+            NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT = ReflectionUtils.getConstructor(NMS_ITEM_STACK, NBT_TAG_COMPOUND);
+            NMS_ITEM_STACK_METHOD_WITH_NBT = ReflectionUtils.getMethod(NMS_ITEM_STACK, "createStack", NBT_TAG_COMPOUND);
 
             HAS_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "hasTag");
             GET_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "getTag");
@@ -119,8 +122,16 @@ public class NBTUtils {
      * @return {@link Object}
      */
     public static Object newNMSItemStack(Object nbtTagCompound) {
+        String version = NMSUtils.getVersion();
+        //子版本 如 v1_10_R1 中的10
+        int subVersion = Integer.valueOf(version.split("_")[1]);
+        /* 1.11版本及以上删除了createStack方法所以只能使用其构造方法来创建 */
         try {
-            return ReflectionUtils.instantiateObject(NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT, nbtTagCompound);
+            if (subVersion >= 11) {
+                return ReflectionUtils.instantiateObject(NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT, nbtTagCompound);
+            } else {
+                return ReflectionUtils.invokeMethod(NMS_ITEM_STACK_METHOD_WITH_NBT, null, nbtTagCompound);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
