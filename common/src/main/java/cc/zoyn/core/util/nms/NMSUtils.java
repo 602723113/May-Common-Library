@@ -1,4 +1,4 @@
-package cc.zoyn.core.util;
+package cc.zoyn.core.util.nms;
 
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
@@ -113,7 +113,6 @@ public final class NMSUtils {
 
         if (asNMSCopyMethod == null) {
             Class craftItemStack = NMSUtils.getOBCClass("inventory.CraftItemStack");
-            System.out.println("CIS: " + craftItemStack);
 
             try {
                 // CraftItemStack

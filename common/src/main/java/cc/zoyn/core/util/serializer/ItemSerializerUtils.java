@@ -1,6 +1,6 @@
 package cc.zoyn.core.util.serializer;
 
-import cc.zoyn.core.util.NMSUtils;
+import cc.zoyn.core.util.nms.NMSUtils;
 import org.bukkit.inventory.ItemStack;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 

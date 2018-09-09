@@ -1,5 +1,6 @@
 package cc.zoyn.core.tellraw;
 
+import cc.zoyn.core.util.serializer.ItemSerializer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;

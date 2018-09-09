@@ -1,12 +1,20 @@
-package cc.zoyn.core.tellraw;
+package cc.zoyn.core.util.serializer;
 
-import cc.zoyn.core.util.NMSUtils;
-import cc.zoyn.core.util.nbt.NBTUtils;
+import cc.zoyn.core.util.nms.NMSUtils;
+import cc.zoyn.core.util.nms.nbt.NBTUtils;
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
 
+/**
+ * 此类用于将物品转换为mojangson数据或将mojangson数据转换为物品
+ * <p>
+ * This class is convert an item to mojangson data or unconvert mojangson data to an item
+ *
+ * @author Zoyn
+ * @since 2018/8/29
+ */
 public class ItemSerializer {
 
     private static Method SAVE_NBT;
@@ -19,6 +27,10 @@ public class ItemSerializer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Prevent accidental construction
+    private ItemSerializer() {
     }
 
     /**

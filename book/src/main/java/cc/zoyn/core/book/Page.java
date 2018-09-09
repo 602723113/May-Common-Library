@@ -1,6 +1,8 @@
 package cc.zoyn.core.book;
 
+import cc.zoyn.core.util.serializer.ItemSerializer;
 import com.google.common.collect.Lists;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +23,65 @@ public class Page {
      */
     public Page(String text) {
         jsonParts.add(new JsonImpl(text));
+    }
+
+    /**
+     * 当玩家光标悬停在文本上时，它将向玩家显示成就或统计数据
+     * <p>
+     * When the player cursor hover the text, it will show a achievement or statistic to player
+     * <p>
+     * The key can be found at here
+     * https://minecraft.gamepedia.com/Achievements#List_of_achievements
+     * https://minecraft.gamepedia.com/Statistics#List_of_general_statistics
+     * <p/>
+     *
+     * @param value the id of achievement or statistic
+     * @return {@link Page}
+     */
+    public Page showAchievement(String value) {
+        onHover("show_achievement", value);
+        return this;
+    }
+
+    /**
+     * 当玩家光标悬停在文本上时，它将向玩家显示实体信息
+     * <p>
+     * When the player cursor hover the text, it will show a entity information to player
+     *
+     * @param name       the name
+     * @param entityType the entity type
+     * @param id         the id
+     * @return {@link Page}
+     */
+    public Page showEntity(String name, String entityType, String id) {
+        onHover("show_entity", "{\"id\":\"" + id + "\", \"name\":\"" + name + "\", \"type\":\"" + entityType + "\"}");
+        return this;
+    }
+
+    /**
+     * 当玩家光标悬停在文本上时，它会向玩家显示一个物品
+     * <p>
+     * When the player cursor hover the text, it will show a item to player
+     *
+     * @param itemStack the item
+     * @return {@link Page}
+     */
+    public Page showItem(ItemStack itemStack) {
+        onHover("show_item", ItemSerializer.getItemStackJson(itemStack));
+        return this;
+    }
+
+    /**
+     * 当玩家点击文本时，它会打开一个url并提示玩家
+     * <p>
+     * When the player click the text, it will open a url and tips player
+     *
+     * @param url the url
+     * @return {@link Page}
+     */
+    public Page openUrl(String url) {
+        onClick("open_url", url);
+        return this;
     }
 
     /**
@@ -52,7 +113,7 @@ public class Page {
      * @return {@link Page}
      */
     public Page excuteCommand(String command) {
-        return onClick(command);
+        return onClick("run_command", command);
     }
 
     /**
@@ -79,7 +140,7 @@ public class Page {
      * @return {@link Page}
      */
     public Page addHover(String text) {
-        return onHover(text);
+        return onHover("show_text", text);
     }
 
     /**
@@ -99,7 +160,7 @@ public class Page {
      * @return {@link Page}
      */
     public Page addAnotherMessage(String text) {
-        return addAnotherMessage(new JsonImpl(String.format(text)));
+        return addAnotherMessage(new JsonImpl(text));
     }
 
     /**
@@ -130,12 +191,13 @@ public class Page {
     /**
      * 添加显示操作
      *
+     * @param name 悬浮显示
      * @param data 显示内容
      * @return {@link Page}
      */
-    private Page onHover(String data) {
+    private Page onHover(String name, String data) {
         JsonImpl latest = latest();
-        latest.hoverActionName = "show_text";
+        latest.hoverActionName = name;
         latest.hoverActionData = data;
         return this;
     }
@@ -143,12 +205,13 @@ public class Page {
     /**
      * 添加点击操作
      *
+     * @param name 点击名称
      * @param data 点击操作
      * @return {@link Page}
      */
-    private Page onClick(String data) {
+    private Page onClick(String name, String data) {
         JsonImpl latest = latest();
-        latest.clickActionName = "run_command";
+        latest.clickActionName = name;
         latest.clickActionData = data;
         return this;
     }

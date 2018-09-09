@@ -1,4 +1,4 @@
-package cc.zoyn.core.util.nbt;
+package cc.zoyn.core.util.nms.nbt;
 
 import com.google.common.collect.Maps;
 

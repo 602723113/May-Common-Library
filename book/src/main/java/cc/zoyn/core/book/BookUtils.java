@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static cc.zoyn.core.util.NMSUtils.*;
+import static cc.zoyn.core.util.nms.NMSUtils.*;
 import static cc.zoyn.core.util.reflect.ReflectionUtils.getFieldByFieldName;
 import static cc.zoyn.core.util.reflect.ReflectionUtils.getMethod;
 
