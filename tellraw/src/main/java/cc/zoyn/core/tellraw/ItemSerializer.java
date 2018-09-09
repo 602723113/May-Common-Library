@@ -1,7 +1,7 @@
 package cc.zoyn.core.tellraw;
 
-import cc.zoyn.core.util.NMSUtils;
-import cc.zoyn.core.util.nbt.NBTUtils;
+import cc.zoyn.core.util.nms.NMSUtils;
+import cc.zoyn.core.util.nms.nbt.NBTUtils;
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.bukkit.inventory.ItemStack;
 
@@ -19,6 +19,10 @@ public class ItemSerializer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Prevent accidental construction
+    private ItemSerializer() {
     }
 
     /**

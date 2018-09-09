@@ -1,6 +1,6 @@
-package cc.zoyn.core.util.nbt;
+package cc.zoyn.core.util.nms.nbt;
 
-import cc.zoyn.core.util.NMSUtils;
+import cc.zoyn.core.util.nms.NMSUtils;
 import cc.zoyn.core.util.reflect.ReflectionUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
