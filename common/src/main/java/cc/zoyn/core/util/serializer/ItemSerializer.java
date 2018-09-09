@@ -1,4 +1,4 @@
-package cc.zoyn.core.tellraw;
+package cc.zoyn.core.util.serializer;
 
 import cc.zoyn.core.util.nms.NMSUtils;
 import cc.zoyn.core.util.nms.nbt.NBTUtils;
