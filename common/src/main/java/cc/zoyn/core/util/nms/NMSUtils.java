@@ -122,7 +122,7 @@ public final class NMSUtils {
             }
         }
         try {
-            return ReflectionUtils.invokeMethod(asNMSCopyMethod, null, itemStack);
+            return invokeMethod(asNMSCopyMethod, null, itemStack);
         } catch (Exception e) {
             e.printStackTrace();
         }
