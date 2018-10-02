@@ -19,6 +19,14 @@ public final class ItemStackUtils {
     private ItemStackUtils() {
     }
 
+    public static boolean hasEnchantment(ItemStack itemStack) {
+        return itemStack != null && !itemStack.getType().equals(Material.AIR) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants();
+    }
+
+    public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
+        return itemStack != null && !itemStack.getType().equals(Material.AIR) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchant(enchantment);
+    }
+
     /**
      * 附魔序列化
      *
