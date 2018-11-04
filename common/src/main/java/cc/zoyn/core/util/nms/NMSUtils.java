@@ -23,6 +23,7 @@ public final class NMSUtils {
     private static Field playerConnectionField;
     private static Method sendPacketMethod;
     private static Method asNMSCopyMethod;
+    private static Method asCraftCopyMethod;
     private static Method asBukkitCopyMethod;
     private static Method stringAsIChatBaseComponentMethod;
     private static Method craftBukkitEntityPlayerGetHandleMethod;
@@ -40,6 +41,7 @@ public final class NMSUtils {
             playerConnectionField = getFieldByFieldName(getNMSClass("EntityPlayer"), "playerConnection");
             sendPacketMethod = getMethod(getNMSClass("PlayerConnection"), "sendPacket", getNMSClass("Packet"));
             asNMSCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
+            asCraftCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asCraftCopy", ItemStack.class);
             asBukkitCopyMethod = getMethod(getOBCClass("inventory.CraftItemStack"), "asBukkitCopy", getNMSClass("ItemStack"));
             stringAsIChatBaseComponentMethod = getMethod(getNMSClass("IChatBaseComponent$ChatSerializer"), "a", String.class);
             craftBukkitEntityPlayerGetHandleMethod = getMethod(getOBCClass("entity.CraftPlayer"), "getHandle");
@@ -123,6 +125,35 @@ public final class NMSUtils {
         }
         try {
             return invokeMethod(asNMSCopyMethod, null, itemStack);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemStack;
+    }
+
+    /**
+     * 取物品的 OBC 对象
+     * <p>
+     * Get the OBC object of the item
+     *
+     * @param itemStack the itemStack
+     * @return {@link Object}
+     */
+    public static Object getOBCItem(ItemStack itemStack) {
+        Validate.notNull(itemStack);
+
+        if (asCraftCopyMethod == null) {
+            Class craftItemStack = NMSUtils.getOBCClass("inventory.CraftItemStack");
+
+            try {
+                // CraftItemStack
+                asCraftCopyMethod = getMethod(craftItemStack, "asCraftCopy", ItemStack.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            return invokeMethod(asCraftCopyMethod, null, itemStack);
         } catch (Exception e) {
             e.printStackTrace();
         }

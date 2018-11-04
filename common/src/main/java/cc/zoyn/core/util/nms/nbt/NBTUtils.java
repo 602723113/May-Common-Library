@@ -19,6 +19,7 @@ public class NBTUtils {
     private static Method HAS_TAG;
     private static Method GET_TAG;
     private static Method SET_TAG;
+    private static Method SAVE_NBT;
 
     /* The method of NBTTagCompound */
     private static Method SET_DATA;
@@ -37,6 +38,7 @@ public class NBTUtils {
     private static Method ADD;
     private static Method GET;
     private static Method REMOVE;
+    private static Method SIZE;
 
     // It's public ItemStack(NBTTagCompound nbtTagCompound)
     private static Constructor<?> NMS_ITEM_STACK_CONSTRUCTOR_WITH_NBT;
@@ -55,6 +57,7 @@ public class NBTUtils {
             HAS_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "hasTag");
             GET_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "getTag");
             SET_TAG = ReflectionUtils.getMethod(NMS_ITEM_STACK, "setTag", NBT_TAG_COMPOUND);
+            SAVE_NBT = ReflectionUtils.getMethod(NMS_ITEM_STACK, "save", NBT_TAG_COMPOUND);
 
             SET_INT = ReflectionUtils.getMethod(NBT_TAG_COMPOUND, "setInt", String.class, Integer.TYPE);
             SET_STRING = ReflectionUtils.getMethod(NBT_TAG_COMPOUND, "setString", String.class, String.class);
@@ -71,6 +74,7 @@ public class NBTUtils {
             ADD = ReflectionUtils.getMethod(NBT_TAG_LIST, "add", NMSUtils.getNMSClass("NBTBase"));
             GET = ReflectionUtils.getMethod(NBT_TAG_LIST, "get", Integer.TYPE);
             REMOVE = ReflectionUtils.getMethod(NBT_TAG_LIST, "remove", Integer.TYPE);
+            SIZE = ReflectionUtils.getMethod(NBT_TAG_LIST, "size");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,6 +171,28 @@ public class NBTUtils {
     }
 
     /**
+     * 将一个物品的 NBT 转换为可储存的 NBTTagCompound 对象
+     * <p>
+     * Convert an item's NBT to a storable NBTTagCompound object
+     *
+     * @param item the item, which can be BukkitItemStack or NMSItemStack
+     * @return the storable nbt object
+     */
+    public static Object saveItemNBT(Object item) {
+        Object pendingItem = item;
+        Object savedTag = null;
+        if (item instanceof ItemStack) {
+            pendingItem = NMSUtils.getNMSItem((ItemStack) item);
+        }
+        try {
+            savedTag = ReflectionUtils.invokeMethod(SAVE_NBT, pendingItem, NBTUtils.newNBTTagCompound());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return savedTag;
+    }
+
+    /**
      * Set the item nbt, and return the BukkitItem
      *
      * @param nbtTagCompound the nbt
@@ -214,12 +240,45 @@ public class NBTUtils {
         Object nbtTagList = newNBTTagList();
         value.forEach(tagCompound -> {
             try {
-                ReflectionUtils.invokeMethod(ADD, nbtTagList, tagCompound.build());
+                nbtTagListAddNBTBase(nbtTagList, tagCompound.build());
+//                ReflectionUtils.invokeMethod(ADD, nbtTagList, tagCompound.build());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         setTagCompound(nbtTagCompound, key, nbtTagList);
+    }
+
+    /**
+     * 使用给定的 NBTBase 对象 add 至一个 NBTTagList 当中
+     * <p>
+     * Use the given NBTBase object add to an NBTTagList
+     *
+     * @param nbtTagList the nbt list
+     * @param nbtBase    the NBTBase
+     */
+    public static void nbtTagListAddNBTBase(Object nbtTagList, Object nbtBase) {
+        try {
+            ReflectionUtils.invokeMethod(ADD, nbtTagList, nbtBase);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取一个 NBTTagList 的大小, 当nbtTagList为null或nbtTagList不属于NBTTagList时，它将返回-1
+     * Get the size of an NBTTagList
+     *
+     * @param nbtTagList the nbt list
+     * @return the size of nbt list. When the nbtTagList is null or the nbtTagList doesn't belong to NBTTagList, it will return -1
+     */
+    public static int getNBTTagListSize(Object nbtTagList) {
+        try {
+            return (int) ReflectionUtils.invokeMethod(SIZE, nbtTagList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**

@@ -17,12 +17,10 @@ import java.lang.reflect.Method;
  */
 public class ItemSerializer {
 
-    private static Method SAVE_NBT;
     private static Method MOJANGSON_TO_NBT;
 
     static {
         try {
-            SAVE_NBT = ReflectionUtils.getMethod(NMSUtils.getNMSClass("ItemStack"), "save", NMSUtils.getNMSClass("NBTTagCompound"));
             MOJANGSON_TO_NBT = ReflectionUtils.getMethod(NMSUtils.getNMSClass("MojangsonParser"), "parse", String.class);
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,13 +38,7 @@ public class ItemSerializer {
      * @return {@link String}
      */
     public static String getItemStackJson(ItemStack itemStack) {
-        Object nmsItem = NMSUtils.getNMSItem(itemStack);
-        Object savedTag = null;
-        try {
-            savedTag = ReflectionUtils.invokeMethod(SAVE_NBT, nmsItem, NBTUtils.newNBTTagCompound());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Object savedTag = NBTUtils.saveItemNBT(itemStack);
         if (savedTag != null) {
             return savedTag.toString();
         } else {
